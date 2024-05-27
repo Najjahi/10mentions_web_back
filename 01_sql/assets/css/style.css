@@ -1,0 +1,22 @@
+body {
+    background-color: #333 !important;
+}
+header nav img {
+    width: 50px;
+}
+.container {
+    background-color:#fff;
+
+}
+hr {
+    height: 7px;
+    background: linear-gradient(to right, #ce0380 0%,#a409cb 50%, #af000f 100%);
+    width: 80%;
+    margin: 0 auto !important;
+}
+strong {
+    color: #ce0380;
+}
+em {
+    color: darkslategray;
+}
