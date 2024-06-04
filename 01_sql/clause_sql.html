@@ -61,6 +61,13 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
                <li> Observer la description d'une table : <strong> <code> DESC nomTable </code></strong>
                </li>
                <li> Voir les BDD dans le serveur : <strong> <code> SHOW DATABASES </code></strong></li>
+               <li>Rajouter un champs dans une table existance : 
+               <strong>
+                     <code> 
+                         ALTER TABLE nom_de_table ADD nom_nouvelle_colonne VARCHAR(255) AFTER nom_colonne_existante
+                    </code>
+               </strong>
+          </li>
           </ul>
      </div>
 </div>
@@ -652,7 +659,8 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                     </li>
                    </ul>
           </div>
-     </div>
+     
+     
                <div class="col-sm-12">
                     <h6 class="text-center"> supprimer avec DELETE </h6>
                     <ul>
@@ -674,6 +682,7 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                </li>
               </ul>
      </div>
+</div>
      <div class="row border border-dark p-5">
           <div class="col-sm-12">
                <h2 class="text-center"> 13 - requêtes imbriquées </h2>
@@ -695,16 +704,197 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                </ul>
                <p class="alert alert-danger"> Ici, on commence à modéliser notre base de données en réfléchissant à ce qui va aller dedans </p>
                <div class="col-sm-12 row">
-                    <div class="col-sm-12 col-md-4"> 
-                         <img src="assets/img/abonne.png" alt=""></div>
-                    <div class="col-sm-12 col-md-4"> <img src="assets/img/livre.png" alt=""></div>
-                    <div class="col-sm-12 col-md-4"> <img src="assets/img/emprunt.png" alt=""></div>
-                    <div class="col-sm-12 col-md-4"> <img src="" alt=""></div>
+                    <div class="col-sm-12 col-md-4"><img class="img-fluid" src="assets/img/abonne.png" alt=""></div>
+                    <div class="col-sm-12 col-md-4"> <img class="img-fluid" src="assets/img/livre.png" alt=""></div>
+                    <div class="col-sm-12 col-md-4"> <img class="img-fluid" src="assets/img/emprunt.png" alt=""></div>
+                    
                </div>
-           
+               <div class="clo-sm-12">
+                    <ul>
+                         <li><h6> Création de la BDD</h6>
+                         <strong>
+                              <code>
+                                   -> CREATE DATABASE IF NOT EXISTS bibliotheque DEFAULT CHARACTER SET = 'utf8mb4'
+                              </code>
+                         </strong>
+                         
+                         </li>
+                    </ul>
+               </div>
+               
+               <div class="clo-sm-12 col-md-4">
+                    <ul>
+                         <li><h6> Création de la premiere table abonnes</h6>
+                         <strong>
+                              <code>
+                                   -> CREATE TABLE IF NOT EXISTS abonnes (<br> id_abonne INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, <br> prenom VARCHAR(20) NOT NULL).
+                              </code>
+                         </strong>
+                         
+                         </li>
+                    </ul>
+               </div>
+
+               <div class="clo-sm-12 col-md-4">
+                    <ul>
+                         <li><h6> Création de la DEUXIEME table livres</h6>
+                         <strong>
+                              <code>
+                                   -> CREATE TABLE IF NOT EXISTS livres (<br> id_livre INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, <br> auteur VARCHAR(30) NOT NULL, <br> titre VARCHAR(30) NOT NULL );
+                              </code>
+                         </strong>
+                         
+                         </li>
+                    </ul>
+               </div>
+               <div class="clo-sm-12 col-md-4">
+                    <ul>
+                         <li><h6> Création de la troixieme table emprunts</h6>
+                         <strong>
+                              <code>
+                                   -> CREATE TABLE IF NOT EXISTS emprunts (<br> 
+                                   id_emprunt INT(3) NOT NULL PRIMARY KEY AUTO_INCREMENT, <br> 
+                                   date_sortie DATE NULL, <br> 
+                                   date_rendu DATE NULL, <br> 
+                                   id_livre INT(3) NULL, <br>  
+                                   id_abonne INT(3) NULL<br> );
+                              </code>
+                         </strong>
+                         
+                         </li>
+                    </ul>
+               </div>
+               <div class="clo-sm-12 col-md-4">
+                    <ul>
+                         <li><h6> Création de clefs étrangeres</h6>
+                              <ul>
+                                   <li> Dans la table emprunt, id_livre sera un champ clé étrangere en référence au champs id_livre de la table livres
+                         <strong>
+                              <code>
+                                   -> ALTER TABLE emprunts ADD FOREIGN KEY (id_livre) REFERENCES bibliotheque.livres(id_livre)
+                              </code>
+                         </strong>
+                    </li>
+               </ul>
+
+               <ul>
+                    <li> Dans la table emprunt, id_abonne sera un champ clé étrangere en référence au champs id_abonne de la table abonnes
+          <strong>
+               <code>
+                    -> ALTER TABLE emprunts ADD FOREIGN KEY (id_abonne) REFERENCES bibliotheque.abonnes(id_abonne)
+               </code>
+          </strong>
+     </li>
+</ul>
+<ul>
+     <li>Modifier la table emprunt, id_abonne sera un champ clé étrangere en référence au champs id_abonne de la table abonnes
+<strong>
+<code>
+     -> ALTER TABLE nom_de_table ADD nom_nouvelle_colonne VARCHAR(255) AFTER nom_colonne_existante
+</code>
+</strong>
+</li>
+</ul>
+<div class="col-sm-12 col-md-12">
+     <h6 class="text-center">Insérer des donnés dans le tables</h6>
+     <ul>
+         <li>
+             <strong>
+                 <code>
+                     INSERT INTO abonnes (prenom) VALUES <br>
+                     ('Guillaume'),<br>
+                     ('Benoit'),<br>
+                     ('Patrick'),<br>
+                     ('Jalloul'),<br>
+                     ('Jamila')
+                 </code>
+             </strong>
+         </li>
+     </ul>
+ </div>
+
+ <div class="col-sm-12 col-md-12">
+     <h6 class="text-center">Insérer des donnés dans le tables</h6>
+     <ul>
+         <li>
+             <strong>
+               <code>INSERT INTO livres (id_livre, auteur, titre) VALUES <br>
+                    (100, 'GUY DE MAUPASSANT', 'Une vie'), <br>
+                    (101, 'GUY DE MAUPASSANT', 'Bel-Ami '), <br>
+                    (102, 'HONORE DE BALZAC', 'Le père Goriot'), <br>
+                    (103, 'ALPHONSE DAUDET', 'Le Petit chose'), <br>
+                    (104, 'ALEXANDRE DUMAS', 'La Reine Margot'), <br>
+                    (105, 'ALEXANDRE DUMAS', 'Les Trois Mousquetaires');
+                </code>
+             </strong>
+         </li>
+     </ul>
+ </div>
+ <div class="col-sm-12 col-md-4">
+     <ul>
+         <li>
+          <strong>
+             <code>
+                    INSERT INTO emprunts (id_emprunt, id_livre, id_abonne, date_sortie, date_rendu) VALUES <br>
+                 (NULL, 100, 1, '2014-12-17', '2014-12-18'), <br>
+                 (NULL, 101, 2, '2014-12-18', '2014-12-20'), <br>
+                 (NULL, 100, 3, '2014-12-19', '2014-12-22'), <br>
+                 (NULL, 103, 4, '2014-12-19', '2014-12-22'), <br>
+                 (NULL, 104, 1, '2014-12-19', '2014-12-28'), <br>
+                 (NULL, 105, 2, '2015-03-20', '2015-03-26'), <br>
+                 (NULL, 105, 3, '2015-06-13', NULL), <br>
+                 (NULL, 100, 2, '2015-06-15', NULL);
+               </code>
+          </strong>
+         </li>
+     </ul>
+ </div>
+ <div class="col-sm-12 mt-5">
+     <H6> Exemple de requêtes</H6>
+     <ul>
+          <li> On cherche les livres qui n'ont pas été rendu : <br> </li>
+         <li>
+          <strong>
+             <code>
+               SELECT id_livre FROM emprunt WHERE date_rendu IS NULL;
+               </code>
+          </strong>
+         </li>
+       <li class="alert alert-danger"> Pour trouver un résultat est null on utilise le terme <em>IS</em><code>
+          SELECT id_livre FROM emprunt WHERE date_rendu = NULL; </code> Ne touve aucun résultat</li> 
+          
+          <li> on cherche les titres des livres qui n'ont pas été rendu <br>
+               <strong>
+                    <code>
+                         SELECT titre, id_livre FROM livres WHERE id_livre IN (SELECT id_livre FROM emprunt WHERE date_rendu IS NULL);
+                    </code>
+               </strong>
+
+          </li>
+
+     </ul>
+ </div>
+
+
+
+
+
+<ul>
+     <li> Dans la table emprunt, id_abonne sera un champ clé étrangere en référence au champs id_abonne de la table abonnes
+<strong>
+<code>
+     -> ALTER TABLE emprunts ADD FOREIGN KEY (id_abonne) REFERENCES bibliotheque.abonnes(id_abonne)
+</code>
+</strong>
+</li>
+</ul>
+                         </li>
+                    </ul>
+               </div>
+               
 </div>
 </div>
-</div>
+
        
 
 
