@@ -706,10 +706,12 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                <div class="col-sm-12 row">
                     <div class="col-sm-12 col-md-4"><img class="img-fluid" src="assets/img/abonne.png" alt=""></div>
                     <div class="col-sm-12 col-md-4"> <img class="img-fluid" src="assets/img/livre.png" alt=""></div>
-                    <div class="col-sm-12 col-md-4"> <img class="img-fluid" src="assets/img/emprunt.png" alt=""></div>
-                    
+                    <div class="col-sm-12 col-md-4"> <img class="img-fluid" src="assets/img/emprunt.png" alt=""></div>                    
                </div>
-               <div class="clo-sm-12">
+          </div>
+     </div>
+</div>
+               <div class="col-sm-12 col-md-4">
                     <ul>
                          <li><h6> Création de la BDD</h6>
                          <strong>
@@ -722,7 +724,7 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                     </ul>
                </div>
                
-               <div class="clo-sm-12 col-md-4">
+               <div class="col-sm-12 col-md-4">
                     <ul>
                          <li><h6> Création de la premiere table abonnes</h6>
                          <strong>
@@ -735,7 +737,7 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                     </ul>
                </div>
 
-               <div class="clo-sm-12 col-md-4">
+               <div class="col-sm-12 col-md-4">
                     <ul>
                          <li><h6> Création de la DEUXIEME table livres</h6>
                          <strong>
@@ -747,7 +749,7 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                          </li>
                     </ul>
                </div>
-               <div class="clo-sm-12 col-md-4">
+               <div class="col-sm-12 col-md-4">
                     <ul>
                          <li><h6> Création de la troixieme table emprunts</h6>
                          <strong>
@@ -764,7 +766,7 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                          </li>
                     </ul>
                </div>
-               <div class="clo-sm-12 col-md-4">
+               <div class="col-sm-12 col-md-4">
                     <ul>
                          <li><h6> Création de clefs étrangeres</h6>
                               <ul>
@@ -795,8 +797,9 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
 </strong>
 </li>
 </ul>
-<div class="col-sm-12 col-md-12">
-     <h6 class="text-center">Insérer des donnés dans le tables</h6>
+</div>
+<div class="col-sm-12 col-md-4">
+     <h6 class="text-center">Insérer des donnés dans le tables <br>/h6>
      <ul>
          <li>
              <strong>
@@ -813,8 +816,8 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
      </ul>
  </div>
 
- <div class="col-sm-12 col-md-12">
-     <h6 class="text-center">Insérer des donnés dans le tables</h6>
+ <div class="col-sm-12 col-md-4">
+     <h6 class="text-center">Insérer des donnés dans le tables <br></h6>
      <ul>
          <li>
              <strong>
@@ -843,7 +846,7 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                  (NULL, 104, 1, '2014-12-19', '2014-12-28'), <br>
                  (NULL, 105, 2, '2015-03-20', '2015-03-26'), <br>
                  (NULL, 105, 3, '2015-06-13', NULL), <br>
-                 (NULL, 100, 2, '2015-06-15', NULL);
+                 (NULL, 100, 2, '2015-06-15', NULL); <br>
                </code>
           </strong>
          </li>
@@ -869,38 +872,167 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                          SELECT titre, id_livre FROM livres WHERE id_livre IN (SELECT id_livre FROM emprunt WHERE date_rendu IS NULL);
                     </code>
                </strong>
-
           </li>
+          <li> On cherche maintenant les id des livres que Patrick a emprunté 
+               si je connais l'id de patrick je peux exécuter : <br> </li>
+         <li>
+          <strong>
+             <code>
+               SELECT id_livre FROM emprunt WHERE id_abonne = 3 ;
+               </code>
+          </strong>
+         </li>
+         <br>
+         <li> si je connais pas l'id de Patrick <br></li>
+         <li>
+          <strong>
+             <code>
+               SELECT id_livre FROM emprunt WHERE id_abonne IN (SELECT id_abonne FROM abonnes WHERE prenom ='Patrick');
+               </code>
+          </strong>
+         </li>
+         <br>
+         <li> On cherche maintenant les titres des livres que Patrick a emprunté <br></li>                    
+    <li>
+     <strong>
+        <code>
+          SELECT titre,id_livre FROM livres WHERE id_livre IN (SELECT id_livre FROM emprunt WHERE id_abonne IN (SELECT id_abonne FROM abonnes WHERE prenom = 'Patrick'));
+     </code>
+     </strong>
 
+    </li>
+    <li> On cherche maintenant le prénom des abonnes ayant emprunté un livre le 2014-12-19 <br></li>
+    <li>
+     <strong>
+        <code>
+          SELECT prenom, id_abonne FROM abonnes WHERE id_abonne IN (SELECT id_abonne FROM emprunt WHERE date_sortie = '2014-12-19' );          
+     </code>
+     </strong>
+    </li>
+    <li> Afficher la liste des abonnnes ayant emprunté un livre de DAUDET <br>
+
+    </li>
+    <li>
+     <strong>
+        <code>
+          SELECT prenom, id_abonne FROM abonnes WHERE id_abonne IN (SELECT id_abonne FROM emprunt WHERE id_livre IN ( SELECT id_livre FROM livres WHERE auteur LIKE '%DAUDET%'));  
+          
+      </code>
+     </strong>
+    </li>
+
+    <li> Afficher le titre des livres que BENOIT a emprunté à la bibliotheque<br>
+
+    </li>
+    <li>
+     <strong>
+        <code>
+         SELECT titre FROM livres WHERE id_livre IN (SELECT id_livre FROM emprunt WHERE id_abonne IN (SELECT id_abonne FROM abonnes WHERE prenom = 'Benoit'));
+          
+      </code>
+     </strong>
+    </li>
+    <li>  Afficher les titres des livres que Benoit n'a pas emprunté <br>
+
+    </li>
+    <li>
+     <strong>
+        <code>
+          SELECT id_livre, titre FROM livres WHERE id_livre NOT IN  (SELECT id_livre FROM emprunt WHERE id_abonne IN (SELECT id_abonne FROM abonnes WHERE prenom = 'Benoit'));
+          
+      </code>
+     </strong>
+    </li>
+   
+
+    <li> Afficher les titres des livres que Benoit n'a pas encore rendu à la bibliothèque <br>
+
+    </li>
+    <li>
+     <strong>
+        <code>
+          SELECT id_livre, titre FROM livres WHERE id_livre NOT IN (SELECT id_livre FROM emprunt WHERE date_rendu IS NULL AND id_abonne IN (SELECT id_abonne FROM abonnes WHERE prenom = 'Benoit' ));
+          
+      </code>
+     </strong>
+    </li>
+
+    <li> Combien de livres Guillaume a emprunté à la bibliothèque ? <br>
+
+    </li>
+    <li>
+     <strong>
+        <code>
+          
+          SELECT COUNT(*) FROM livres WHERE id_livre IN (SELECT id_livre FROM emprunt WHERE date_rendu IS NULL AND id_abonne IN (SELECT id_abonne FROM abonnes WHERE prenom = 'Benoit' )); = 'Guillaume';
+          
+      </code>
+      <br>
+      <code>
+          SELECT COUNT(id_livre) AS nombreEempruntGuillaume FROM emprunt WHERE id_abonne IN (SELECT id_abonne FROM abonnes WHERE prenom = 'Guillaume')
+      </code>
+     </strong>
+    </li>
+
+    <li> Quel est le livre qui n'a été emprunté par personne <br>
+
+    </li>
+    <li>
+     <strong>
+        <code>
+          SELECT titre FROM livres WHERE id_livre NOT IN (SELECT id_livre FROM emprunt);
+          
+      </code>
+     </strong>
+    </li>
+
+    <li> Combien de personnes ont emprunté le livre Une vie ? <br>
+
+    </li>
+    <li>
+     <strong>
+        <code>
+          
+         
+          SELECT COUNT(prenom) FROM abonnes WHERE id_abonne IN(SELECT id_abonne FROM emprunt WHERE id_livre IN (SELECT id_livre FROM livres WHERE titre = 'une vie' ));
+
+      </code>
+      <br>
+      ou
+      <br>
+      <code>
+          SELECT COUNT(*) FROM emprunt WHERE id_livre IN (SELECT id_livre FROM livres WHERE titre ='une vie' );
+      </code>
+     </strong>
+    </li>
+
+    <li> Quel livre a été emprunté le dernier ? <br>
+
+    </li>
+    <li>
+     <strong>
+        <code>
+          
+          SELECT titre FROM livres WHERE id_livre IN (SELECT id_livre FROM emprunt ORDER BY date_sortie DESC) LIMIT 1
+     
+      </code>
+     </strong>
+    </li>
+        
      </ul>
  </div>
 
-
-
-
-
-<ul>
-     <li> Dans la table emprunt, id_abonne sera un champ clé étrangere en référence au champs id_abonne de la table abonnes
-<strong>
-<code>
-     -> ALTER TABLE emprunts ADD FOREIGN KEY (id_abonne) REFERENCES bibliotheque.abonnes(id_abonne)
-</code>
-</strong>
-</li>
-</ul>
-                         </li>
-                    </ul>
-               </div>
+  </div>
                
 </div>
 </div>
 
        
 
-
+</div>
 
 </main>
-</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
