@@ -710,7 +710,7 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                </div>
           </div>
      </div>
-</div>
+
                <div class="col-sm-12 col-md-4">
                     <ul>
                          <li><h6> Création de la BDD</h6>
@@ -863,7 +863,8 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
                </code>
           </strong>
          </li>
-       <li class="alert alert-danger"> Pour trouver un résultat est null on utilise le terme <em>IS</em><code>
+   
+       <li > Pour trouver un résultat est null on utilise le terme <em>IS</em><code>
           SELECT id_livre FROM emprunt WHERE date_rendu = NULL; </code> Ne touve aucun résultat</li> 
           
           <li> on cherche les titres des livres qui n'ont pas été rendu <br>
@@ -931,7 +932,7 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
           
       </code>
      </strong>
-    </li>
+    </li><br>
     <li>  Afficher les titres des livres que Benoit n'a pas emprunté <br>
 
     </li>
@@ -986,20 +987,16 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
      </strong>
     </li>
 
-    <li> Combien de personnes ont emprunté le livre Une vie ? <br>
+    <li> Combien de personnes ont emprunté le livre Une vie ? 
 
-    </li>
+    </li><br>
     <li>
      <strong>
-        <code>
-          
+        <code>          
          
           SELECT COUNT(prenom) FROM abonnes WHERE id_abonne IN(SELECT id_abonne FROM emprunt WHERE id_livre IN (SELECT id_livre FROM livres WHERE titre = 'une vie' ));
 
-      </code>
-      <br>
-      ou
-      <br>
+      </code> <br> ou<br>
       <code>
           SELECT COUNT(*) FROM emprunt WHERE id_livre IN (SELECT id_livre FROM livres WHERE titre ='une vie' );
       </code>
@@ -1020,19 +1017,84 @@ CREATE DATABASE IF NOT EXISTS entreprise  </code></strong></li>
     </li>
         
      </ul>
- </div>
-
-  </div>
-               
-</div>
-</div>
-
-       
 
 </div>
+
+<div class="row m-2 border border-dark p-2">
+     <div class="col-sm-12">
+          <h2 class="text-center"> 14- Les jointures </h2>
+          <hr>
+          <div class=" col-sm-12 mt-5">
+               <ul>
+                    <li> Les requêtes de jointure permettent l'extraction de plusieurs tables</li>
+                    <li>L'avantage des jointures est que l'on peut obtenir dans le resultat final des colonnes ( des champs issus de plusieurs tables différentes)</li>
+               </ul>
+               <h6> Récapilutif</h6>
+               <ul>
+                    <li><code>SELECT </code>: va comprter la liste de champs que je souhaite afficher dans mon résultat</li>
+                    <li><code>FROM</code>: je précise que telle table je m'en set dans ma requête</li>
+                    <li> <code>WHERE</code>définit les conditions de jointures pour assurer le croisement des données : va permettre de </li>
+                    <li><code>AND/OR</code>:autre condition nécessaire à mon résultat</li><br>
+               </ul>
+          </div>
+          <div class="col-sm-12 mt-5">
+               <ul>
+                    <li>
+                         dans la bibliotheque afficher les dates auquelles Guillaume n'est rendu à la bibliothèque pour emprunter ou rendre un livre, on a besoin de trois colonnes: le prénom, la date_sortie et la date_rendu <br>
+                         <strong>
+                              <code>
+                                   SELECT abonnes.prenom, emprunt.date_sortie, emprunt.date_rendu FROM abonnes, emprunt WHERE abonnes.prenom = 'Guillaume' AND abonnes.id_abonne = emprunt.id_abonne;
+                              </code>
+                         </strong>
+                    </li>
+                    <li>
+                         La même chose avec du préfixe 
+                         <strong>
+                              <code>
+                                  SELECT a.prenom, e.date_sortie, e.date_rendu FROM abonnes a, emprunt e WHERE a.prenom = 'Guillaume' AND a.id_abonne = e.id_abonne
+                              </code>
+                          </strong>
+                    </li>
+                    <li> QUI a emprunté le livre une vie en 2014, afficher le prenom, date_sortie et le titre de livre <br>
+                    <strong>
+                         <code>
+                              SELECT abonnes.prenom, emprunt.date_sortie, livres.titre FROM abonnes, emprunt, livres WHERE livres.titre = 'Une vie' AND emprunt.date_sortie LIKE '2014%' AND abonnes.id_abonne = emprunt.id_abonne AND livres.id_livre = emprunt.id_livre;
+                         </code>
+                     </strong>
+                    </li><br>
+                    <li> Afficher le nombre de livres empruntés par chaque abonne : prenom et nombre de livres<br>
+                    <strong>
+                         <code>
+                              SELECT abonnes.prenom, COUNT(emprunt.id_livre) AS nbr_livre FROM abonnes, emprunt WHERE abonnes.id_abonne = emprunt.id_abonne GROUP BY emprunt.id_abonne ;
+                         </code>
+                     </strong>
+                    </li><br>
+                    <li> Qui a emprunté quoi et quand? (qui: prenom / quoi: titre / quand: date_sortie)<br>
+                         <strong>
+                              <code>
+                                   SELECT abonnes.prenom, emprunt.date_sortie, livres.titre FROM abonnes, emprunt, livres WHERE abonnes.id_abonne = emprunt.id_abonne AND livres.id_livre = emprunt.id_livre;
+                              </code>
+                          </strong>
+                         </li><br>
+                         <li> Afficher le prenom des abonnes avec l'id des livres empruntés :<br>
+                              <strong>
+                                   <code>
+                                        SELECT abonnes.prenom, livres.id_livre FROM abonnes, emprunt, livres WHERE abonnes.id_abonne = emprunt.id_abonne AND livres.id_livre = emprunt.id_livre;
+                                   </code>
+                               </strong>
+                               <br>ou <br>
+                               <strong>
+                                   <code>
+                                        SELECT abonnes.prenom, emprunt.id_livre FROM abonnes, emprunt WHERE abonnes.id_abonne = emprunt.id_abonne;
+                                   </code>
+                               </strong>
+                              </li><br>
+               </ul>
+          </div>
+   
 
 </main>
-
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

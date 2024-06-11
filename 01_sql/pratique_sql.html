@@ -56,9 +56,8 @@
                 <div class="col-sm-12 py-5 mt-5 border border-dark">
                     <h3 class="text-center mb-5">BDD employes</h3>
                     <ul>
-                        <li>Afficher le nom , le prénom et le service des employés qui ont une lettre 'e' à la fin du prénom et travailent dans le service direction et comptabilité : <br>
-                         <br>
-                         <strong>
+                        <li> 1 - Afficher le nom , le prénom et le service des employés qui ont une lettre 'e' à la fin du prénom et travailent dans le service direction et comptabilité:<br>
+                    <strong>
                               <code>
                                 -> SELECT nom, prenom, service FROM employes WHERE prenom LIKE '%e' AND service IN ('direction', 'comptabilité');
                          </code>
@@ -68,24 +67,22 @@
                          </code>
 
                         </strong>
-                        </li>
+                        </li><br>
                             <li>
-                                -> le nom , le prénom et la date d'embauche des employés qui ont été embaucher après 2022 et ont le sexe = 'f ' : <br>
-                            <br>
-                            <strong>
+                                2 - le nom , le prénom et la date d'embauche des employés qui ont été embaucher après 2022 et ont le sexe = 'f ' : <br>
+                       <strong>
                                 <code>
                                     ->  SELECT nom, prenom, date_embauche FROM employes WHERE date_embauche BETWEEN '2023-01-01' AND CURDATE AND sexe = 'f' ;
                              </code>
-                             <br>
+                             <br>ou <br>
                                  <code>
                                     ->  SELECT nom, prenom, date_embauche FROM employes WHERE date_embauche >= '2023-01-01' AND sexe = 'f' ;
                             </code>
                        </strong>
-                        </li>
+                        </li><br>
                         <li>
-                            Afficher les différents salaire touchées dans la base entreprise :  <br>
-                            <br>
-                            <strong>
+                            3 - Afficher les différents salaire touchées dans la base entreprise :  <br>
+                        <strong>
                                  <code>
                                    SELECT DISTINCT salaire FROM employes ;
                             </code>
@@ -95,161 +92,155 @@
                          </code>
 
                        </strong>
-                        </li>
+                        </li><br>
                         <li>
-                            Afficher les noms des employés qui ont un salaire entre 2300 et 4000 :  <br>
+                            4 - Afficher les noms des employés qui ont un salaire entre 2300 et 4000 :  <br>
                             <br>
                             <strong>
                                  <code>
                                      SELECT nom, salaire FROM employes WHERE salaire >= 2300 AND salaire &lt= 4000  ;
                             </code>
                             <br>
-                            code>
+                            <code>
                                      SELECT nom, salaire FROM employes WHERE salaire BETWEEN 2300 AND 4000  ;
                             </code>
                        </strong>
-                        </li>
+                        </li><br>
                         <li>
-                            Afficher le nombre d'employés par salaire : <br>
-                            <br>
-                            <strong>
+                            5 - Afficher le nombre d'employés par salaire : <br>
+                          <strong>
                                  <code>
                                       SELECT salaire, COUNT(*) AS nbr_Employes FROM employes GROUP BY;
                             </code>
                        </strong>
                         </li>
-                        <li>Afficher la profession de l'employé 981 : <br>
-                         <br>
-                         <strong>
+                        <li> 6 - Afficher la profession de l'employé 981 : <br>
+                        <strong>
                               <code>
                                    SELECT id_employe, prenom service FROM employes WHERE id_employe = 981  ;
                          </code>
                     </strong>
                         </li>
-                        <li>Afficher la date d'embauche de Paul :    <br>
-                         <br>
-                         <strong>
+                        <br>
+                        <li> 7 - Afficher la date d'embauche de Paul :    <br>
+                    <strong>
                               <code>
                                   SELECT prenom, date_embauche FROM employes WHERE prenom = 'Paul' ;
                          </code>
                     </strong>
-                        </li>
-                        <li>Afficher le nombre de commerciaux : <br>
-                         <br>
-                         <strong>
-                              <code>
+                        </li><br>
+                        <li> 8 - Afficher le nombre de commerciaux : <br>
+                    <strong>
+                        <code>
                                    SELECT COUNT(*) AS nbr_commerciaux FROM employes WHERE service = 'commercial';
                          </code>
                     </strong>
-                        </li>
-                        <li>Afficher le coût des commerciaux sur une année : <br>
-                         <br>
-                         
+                        </li><br>
+                        <li>9 - Afficher le coût des commerciaux sur une année : <br>
+                     <strong>
                          <code>
                             SELECT SUM(salaire*12) AS Salaire_annuel FROM employes WHERE service = 'commercial';
                   </code>
                     </strong>
-                        </li>
-                        <li> Afficher le salaire moyen par service : <br>
-                         <br>
-                         <strong>
+                        </li><br>
+                        <li> 10 - Afficher le salaire moyen par service : <br>
+                  <strong>
                               <code>
                                    SELECT service, AVG (salaire) AS salaire_moyen FROM employes GROUP BY 'service';
                              </code>
                     </strong>
-                        </li>
-                        <li>Afficher le nombre de recrutement sur l'année 2022 : <br>
-                         <br>
-                         <strong>
+                        </li><br>
+                        <li>11 - Afficher le nombre de recrutement sur l'année 2022 : <br>
+                    <strong>
                               <code>
-                                   SELECT COUNT(*) AS nbr_recrutement FROM employes WHERE date_embauche BETWEEN '2022-01-01' AND '2022-12-31' ;
+                                   SELECT COUNT(*) AS nbr_recrutement FROM employes WHERE date_embauche BETWEEN '2022-01-01' AND '2022-12-31' ;<br>ou <br>
                          </code>
-                         <br>
+                         
                             <code>
-                                SELECT COUNT(*) AS nbr_recrutement FROM employes WHERE date_embauche >= '2022-01-01' &lt; '2022-12-31' ;
-                        </code>
-                        <br>
+                                SELECT COUNT(*) AS nbr_recrutement FROM employes WHERE date_embauche >= '2022-01-01' &lt; '2022-12-31' ;<br>ou <br>
+                        </code> 
                         <code>
                             SELECT COUNT(*) AS nbr_recrutement FROM employes WHERE date_embauche LIKE '%2022%';
-                  </code>
-                  <br>
+                  </code>                 
                     </strong>
-                        </li>
-                        <li>Augmenter le salaire pour chaque employé de 100€ : <br>
-                         <br>
+                        </li> <br>
+                        <li> 12 - Augmenter le salaire pour chaque employé de 100€ : <br>
+                    
                          <strong>
                               <code>
                                    UPDATE employes SET salaire = salaire + 100  ;
                          </code>
                     </strong>
-                        </li>
-                        <li>Afficher le nombre de service : <br>
-                         <br>
+                        </li> <br>
+                        <li> 13 - Afficher le nombre de service : <br>
+                        
                          <strong>
                               <code>
                                    SELECT COUNT(DISTINCT service) AS nbr_service FROM employes ;
                                   
                          </code>
                     </strong>
-                        </li>
+                        </li> <br>
                         <li>
-                            Afficher 10 employés à partir de l'enregistrement 10 : <br>
-                            <br>
+                            14 - Afficher 10 employés à partir de l'enregistrement 10 : <br>
+                       
                             <strong>
                                  <code>
                                     SELECT * FROM employes LIMIT 10,10 ;
                             </code>
                        </strong>
-                        </li>
+                        </li> <br>
                         <li>
-                            Afficher les salaires qui sont touchées par plus qu'un employé : <br>
-                            <br>
+                            15 - Afficher les salaires qui sont touchées par plus qu'un employé : <br>
+                         
                             <strong>
                                  <code>
                                       SELECT salaire, COUNT(*) FROM employes GROUP BY salaire HAVING COUNT(*) > 1 ;
                             </code>
                        </strong>
-                        </li>
-                        <li>Afficher les informations de l'employé du service commercial gagnant le salaire le plus élevé : <br>
-                            <br>
+                        </li> <br>
+                        <li> 16 - Afficher les informations de l'employé du service commercial gagnant le salaire le plus élevé : <br>
+                           
                             <strong>
                                  <code>
-                                       SELECT * FROM employes WHERE service = 'commercial' AND salaire = (SELECT MAX(salaire) FROM employes) WHERE service= 'commercial' ;
+                                      
+                                       SELECT * FROM employes WHERE service ='commercial' AND (salaire =(SELECT MAX(salaire) FROM employes WHERE service = 'commercial'));<br>ou <br>
+
+
                             </code>
                                                        
                        </strong>
-                        </li>
-                        <li>Afficher l'employé ayant été embauché en dernier : <br>
-                            <br>
+                        </li> <br>
+                        <li> 17 - Afficher l'employé ayant été embauché en dernier : <br>
+                        
                             <strong>
                                  <code>
-                                       SELECT * FROM employes ORDER BY date_embauche DESC LIMIT 1;
+                                       SELECT * FROM employes WHERE date_embauche IN (SELECT MAX(date_embauche) FROM employes) ;<br>ou <br>
+                                       SELECT employes.prenom, employes.id_employe, employes.date_embauche FROM employes ORDER BY employes.date_embauche DESC LIMIT 1;  
                             </code>
                        </strong>
-                        </li>
-
+                        </li> <br>
                     </ul>
                 </div>
                 <div class="col-sm-12 py-5 mt-5 border border-dark">
                   <h3 class="text-center mb-5">BDD haribos</h3>
                   <ul>
-                    <li>lister toutes les BDD de PHPMyAdmin <br>
-                        <br>
-                        <strong>
-                             <code>
+                    <li>1 - lister toutes les BDD de PHPMyAdmin <br>
+                   <strong>
+                         <code>
                                   SHOW DATABASES ;
                         </code>
                    </strong>
-                    </li>
+                    </li> <br>
                     <li>
-                        Créer une base de données SQL nommée haribi <br>
+                        2 - Créer une base de données SQL nommée haribo <br>
                         <br>
                         <strong>
                              <code>
                                   CREATE DATABASE IF NOT EXISTS haribo ;
                         </code>
                    </strong>
-                    </li>
+                    </li> <br>
                     <li>
                          <div class="row">
                               <p class="col-sm-12"> Créer les tables stagiaires, bonbons et mange_bonbon </p>
@@ -279,13 +270,13 @@
                           <div class="col-sm-12 col-md-4">
                             
                        <ul>
-                            <li> Dans la table mange_bonbon, id_bonbon sera un champ clé étrangere en référence au champs id_bonbon de la table bonbons 
+                            <li> 3 - Dans la table mange_bonbon, id_bonbon sera un champ clé étrangere en référence au champs id_bonbon de la table bonbons 
                   <strong>
                        <code>
                             -> ALTER TABLE mange_bonbon ADD FOREIGN KEY (id_bonbon) REFERENCES haribo.bonbons(id_bonbon)
                        </code>
                   </strong>
-             </li>
+             </li> <br>
         </ul>
         <ul>
             <li><h6> Création de clefs étrangeres</h6>
@@ -296,11 +287,11 @@
                       -> ALTER TABLE mange_bonbon ADD FOREIGN KEY (id_stagiaire) REFERENCES haribo.stagiaires(id_stagiaire)
                  </code>
             </strong>
-       </li>
+       </li> <br>
   </ul>
 
         <ul>
-             <li>Modifier la table emprunt, id_abonne sera un champ clé étrangere en référence au champs id_abonne de la table abonnes
+             <li>  Modifier la table emprunt, id_abonne sera un champ clé étrangere en référence au champs id_abonne de la table abonnes
         <strong>
         <code>
              -> ALTER TABLE nom_de_table ADD nom_nouvelle_colonne VARCHAR(255) AFTER nom_colonne_existante
@@ -362,15 +353,13 @@
                           </div>
   
                           <li>
-                                1 - Lister les tables de la BDD *haribo* <br>                           
-                             
-                          
-                          <strong>
+                                1 - Lister les tables de la BDD *haribo* <br>                      
+                         <strong>
                               <code>
                                  -   SHOW Tables FROM haribo;
                               </code>
                           </strong>
-                         </li>
+                         </li><br>
                           <li>
                                 2 - Afficher les paramètres de la table *bonbon* <br>      
                         
@@ -385,10 +374,10 @@
                                  
                            <strong>
                               <code>
-                               SELECT * FROM stagiaires ;                                   
+                               SELECT * FROM stagiaires ;<br>                          
                               </code>
                           </strong>
-                         </li>
+                         </li><br>
                            <li>
                               4 - Rajouter un nouveau stagiaire *Patrick* en forçant la numérotation de l'id <br>
                               <!--100 , vert , m-->      
@@ -396,7 +385,8 @@
                            <strong>
                               <code>
                                   INSERT INTO stagiaires (id_stagiaire, prenom, yeux, genre) VALUES (100,'Patrick', 'vert', 'm');
-                                  INSERT INTO stagiaires SET id_stagiaire = 100, prenom = 'Patrick', yeux = 'vert', genre ='m';
+                                  <br>ou <br>
+                                  INSERT INTO stagiaires SET id_stagiaire = 100, prenom = 'Patrick', yeux = 'vert', genre ='m';<br>
 
                               </code>
                           </strong>
@@ -412,7 +402,7 @@
                                 <code>INSERT INTO stagiaires SET prenom=, 
                               </code>
                           </strong>
-                         </li>
+                         </li><br>
                            <li>
                             6 -  Changer le prénom du stagiaire qui a l'id 100 de *Patriiiick* à *Patrick* <br>
          
@@ -422,32 +412,29 @@
                                 6 UPDATE stagiaires SET prenom = 'Patriiiick' WHERE prenom = 'Patrick';
                               </code>
                           </strong>
-                         </li>
+                         </li><br>
                            <li>
                               7 -Rajouter dans la table manger que Patrick a mangé 5 Tagada purple le 15 septembre <br>
                               <p> Il faut tout d'abord insérer le bonbon Tagada avec la saveur purple</p>
-       
-                          
+                                 
                            <strong>
                               <code>
-
                                    INSERT INTO bonbons (nom, saveur) VALUES
                                    ('Tagada', 'purple'); </code>
 
-                                   <code>INSERT INTO mange_bonbon (id_bonbon, id_stagiaire, date_manger, quantite) VALUES(12,100,'2018-09-15', 5);
+                                   <code>INSERT INTO mange_bonbon (id_bonbon, id_stagiaire, date_manger, quantite) VALUES(12,100,'2018-09-15', 5);<br>
                               </code>
                           </strong>
                           <p> J'insére dans la table mange_bonbon que Patrick a mangé 5 Tagada purple le 15 septembre </p>
-                         </li>
+                         </li><br>
                            <li>
-                              8 - Sélectionner tous les noms des bonbons <br>      
-                           
-                           <strong>
+                              8 - Sélectionner tous les noms des bonbons <br>    
+                         <strong>
                               <code>
                                SELECT nom FROM bonbons;    
                               </code>
                           </strong>
-                         </li>
+                         </li><br>
                            <li>
                              9 - Sélectionner tous les noms des bonbons en enlevant les doublons <br>      
                            
@@ -456,7 +443,7 @@
                                  SELECT DISTINCT nom FROM bonbons; 
                               </code>
                           </strong>
-                         </li>
+                         </li><br>
                            <li>
                              10 - Récupérer les couleurs des yeux des stagiaires (Sélectionner plusieurs champs dans une table) <br>      
                         
@@ -465,7 +452,7 @@
                                SELECT prenom, yeux FROM stagiaires;    
                               </code>
                           </strong>
-                         </li>
+                         </li><br>
                            <li>
                               11 - Dédoublonner un résultat sur plusieurs champs <br>      
                           
@@ -473,7 +460,7 @@
                               <code> SELECT DISTINCT yeux FROM stagiaires;</code>  
                              <code>SELECT yeux FROM stagiaires GROUP BY yeux; </code>
                           </strong>
-                         </li>
+                         </li><br>
                            <li>
                               12 - Sélectionner le stagiaire qui a l'id 5 <br>      
                           
@@ -482,17 +469,15 @@
                                   SELECT * FROM stagiaires WHERE id_stagiaire = 5; 
                               </code>
                           </strong>
-                         </li>
+                         </li><br>
                            <li>
                               13 - Sélectionner tous les stagiaires qui ont les yeux marrons <br>
                               <strong>
                                    <code>
                                         SELECT * FROM stagiaires WHERE yeux = 'marron'; 
                                    </code>
-                               </strong>
-      
-                           </li>
-      
+                               </strong>      
+                           </li><br>
                            <li>
                               14 - Sélectionner tous les stagiaires dont l'id est plus grand que 9 <br>
                               <strong>
@@ -501,7 +486,7 @@
                                    </code>
                                </strong>
       
-                           </li>
+                           </li><br>
                            <li>
                               15 - Sélectionner tous les stagiaires SAUF celui dont l'id est 3 <br>
                               <strong>
@@ -514,7 +499,7 @@
                                 </code>
                                </strong>
       
-                           </li>
+                           </li><br>
                            <li>
                               16 - Sélectionner tous les stagiaires qui ont un id inférieur ou égal à 10 <br>
                               <strong>
@@ -717,7 +702,7 @@
                                 
                                </strong>
       
-                          </li>
+                          </li><br>
                           <li> 35 - récupérer tous les stagiaires qui ont mangé des bonbons <br>
                               <strong>
                                    <code>
@@ -729,68 +714,58 @@
                                 </code>
                                </strong>
       
-                          </li>
+                          </li><br>
+                            <h6 class="text-center"> requête de jointure</h6>
                           <li>
-                              36 - Récupérez les informations sur les stagiaires qui ont mangé plus d'un seul bonbon <br>
+                              36 - Récupérez les informations sur les stagiaires qui ont mangé plus d'un seul bonbon : prenom, quantite <br>
                               <strong>
                                    <code>
-                                       SELECT prenom FROM stagiaires WHERE id_stagiaire IN(SELECT id_stagiaire FROM mange_bonbon WHERE quantite > 1 ); 
+                                       SELECT stagiaires.prenom, mange_bonbon.quantite FROM mange_bonbon, stagiaires WHERE mange_bonbon.quantite  > 1 AND stagiaires.id_stagiaire = mange_bonbon.id_stagiaire; <br>ou <br>
+
                                    </code>
-                               </strong>
-      
-                          </li>
-                          <h3 class="text-center"> requête de jointure</h3>
+                               </strong>      
+                          </li>  <br>
+                          
                           <li>
                               37 - Afficher le prénom du stagiaire, le nom du bonbon, la date de consommation pour tous les stagiaires qui ont mangé au moins une fois <br>
                               <strong>
                                    <code>
-                                       SELECT prenom, id_stagiaire FROM stagiaires WHERE id_stagiaire IN (SELECT id_stagiaire FROM mange_bonbon) AND nom, id_bonbon FROM bonbons AND date_manger FROM mange_bonbon WHERE id_bonbon IN (SELECT id_bonbon FROM mange_bonbon) WHERE id_mange_bonbon >=  1;
+                                       SELECT stagiaires.prenom, bonbons.nom, mange_bonbon.date_manger, mange_bonbon.quantite FROM stagiaires, bonbons, mange_bonbon WHERE mange_bonbon.quantite >= 1 AND mange_bonbon.id_stagiaire = stagiaires.id_stagiaire AND bonbons.id_bonbon = mange_bonbon.id_bonbon;
+                                       
+                                      
                                    </code>
                                </strong>
-                            </li>
+                            </li><br>
                           <li>
-                              38 - Afficher le nombre de consommation de *Tagada* <br>
+                              38 - Afficher le nombre de consommation de *Tagada*: nom, quantite <br>
                               <strong>
                                    <code>
-                                        SELECT COUNT(quantite) AS nbr_consomation FROM mange_bonbon WHERE id_bonbon FROM bonbons WHERE nom = 'Tagada' ;
+                                        SELECT bonbons.nom, COUNT(mange_bonbon.quantite) AS nbr_consomation FROM mange_bonbon WHERE id_bonbon FROM bonbons WHERE nom = 'Tagada' ;
                                    </code>
                                    <br>ou <br>
                                    <code>
                                     SELECT SUM(*) AS nbr_stagiaire FROM stagiaires WHERE id_stagiaire IN (SELECT id_stagiaire FROM mange_bonbon) WHERE nom = 'Tagada' ;
                                </code>
-                               </strong>     
-      
-                          </li>
+                               </strong>          
+                          </li><br>
                           <li>
-                            39 - Afficher cette fois le total de "tagada" consommées <br>
+                            39 - Afficher cette fois le total de "tagada" consommées : nom, quantite <br>
                             <strong>
                                  <code>
-                                  SELECT COUNT(*) AS nbr_stagiaire FROM stagiaires WHERE id_stagiaire IN (SELECT id_stagiaire FROM mange_bonbon) WHERE nom = 'Tagada' ;
+                                 
+                                 SELECT bonbons.nom, SUM(mange_bonbon.quantite) FROM mange_bonbon, bonbons WHERE mange_bonbon.id_bonbon = bonbons.id_bonbon AND bonbons.nom ='tagada';
                                  </code>
                              </strong>
-    
-                        </li>
-                          <li>
-                              40 - Afficher cette fois le total de "tagada" consommées <br>
+                        </li> <br>
+                         
+                        <li>
+                              40 -Afficher le prénom du stagiaire qui a mangé le plus de bonbons : prenom, quantite <br>
                               <strong>
                                    <code>
-                                    SELECT COUNT(*) AS nbr_stagiaire FROM stagiaires WHERE id_stagiaire IN (SELECT id_stagiaire FROM mange_bonbon) WHERE nom = 'Tagada' ;
+                                        SELECT stagiaires.prenom, mange_bonbon.quantite FROM mange_bonbon, stagiaires WHERE mange_bonbon.quantite = (SELECT MAX(mange_bonbon.quantite) FROM mange_bonbon) AND stagiaires.id_stagiaire = mange_bonbon.id_stagiaire;
                                    </code>
                                </strong>
-      
-                          </li>
-      
-                          <li>
-                              40 -Afficher le prénom du stagiaire qui a mangé le plus de bonbons <br>
-                              <strong>
-                                   <code>
-                                        SELECT prenom FROM stagiaires IN (SELECT prenom, id_stagiaire FROM mange_bonbon) ORDER BY DESC quantite LIMIT 1
-                                   </code>
-                               </strong>
-      
-      
-                          </li>
-                                     
+                       </li> <br>       
                   </ul>
                 </div>
                 <div class="col-sm-12 py-5 mt-5 border border-dark">
@@ -801,7 +776,7 @@
                         </li>
                         <li>
                             <div class="row">
-                                 <p class="col-sm-12"> Créer les tables : agence, demande, logement, logement_agence, logement_personne et personne  </p>
+                                 <p class="col-sm-12"> 1 - Créer les tables : agence, demande, logement, logement_agence, logement_personne et personne  </p>
                                 <div class="col-sm-4">
 
                                 </div>
@@ -838,7 +813,7 @@
                             </div>
                         </li>
                         <li>
-                            Affichez les noms des agences : <br>
+                            2 - Affichez les noms des agences : <br>
                             <br>
                             <strong>
                                  <code>
@@ -848,42 +823,7 @@
 
                         </li>
                         <li>
-                            Affichez le premier enregistrement de la table logement : <br>
-
-                        </li>
-                        <li>
-                            Affichez le nombre de logements (Alias : Nombre_de_logements) :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Affichez les logements à vendre à moins de 150 000 € dans l'ordre croissant des prix :<br>
-
-                        </li>
-                        <li>
-                            Afficher le nombre de logements à la location (alias : 'nombre') :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Afficher les villes différentes recherchées par les personnes demandeusent d'un logement :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Affichez le nombre de biens à vendre par ville :
+                            3 - Affichez le premier enregistrement de la table logement : <br>
                             <br>
                             <strong>
                                  <code>
@@ -893,7 +833,7 @@
 
                         </li>
                         <li>
-                            Quels sont les id des logements destinés à la location ? :<br>
+                            4 - Affichez le nombre de logements (Alias : Nombre_de_logements) :<br>
                             <br>
                             <strong>
                                  <code>
@@ -902,7 +842,16 @@
                        </strong>
                         </li>
                         <li>
-                            Quels sont les id des logements entre 20 et 30m² ? :<br>
+                            5 - Affichez les logements à vendre à moins de 150 000 € dans l'ordre croissant des prix :<br>
+                            <strong>
+                                <code>
+                                      ;
+                           </code>
+                      </strong>
+                        </li>
+                        <li>
+                            <br>
+                            6 - Afficher le nombre de logements à la location (alias : 'nombre') :<br>
                             <br>
                             <strong>
                                  <code>
@@ -911,7 +860,7 @@
                        </strong>
                         </li>
                         <li>
-                            Quel est le prix vendeur du logement le moins cher a vendre ? :<br>
+                            7 - Afficher les villes différentes recherchées par les personnes demandeusent d'un logement :<br>
                             <br>
                             <strong>
                                  <code>
@@ -920,115 +869,7 @@
                        </strong>
                         </li>
                         <li>
-                            Dans quelle ville se trouve les maisons à vendre ? :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            L'agence Orpi souhaite diminuer les frais qu'elle applique sur le logement ayant l'id « 5246». Passer les frais de ce logement de 800 à 730€
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Quels sont les logements gérés par l'agence « laforet » :
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Affichez le nombre de propriétaires dans la ville de Paris (Alias : Nombre propriétaire parisien) :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Afficher les infos des trois premières personnes souhaitant acheter un logement :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Affichez les noms des agences qui vendent le logement ayant la référence « 5770 » :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Affichez les prénoms des personnes souhaitant accéder à un logement sur la ville de Lyon :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Affichez les prénoms des personnes souhaitant accéder à un logement en location sur la ville de Paris :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Affichez les prénoms des personnes souhaitant acheter un logement de la plus grande à la plus petite superficie :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Quel sont les prix finaux proposés par les agences pour la maison à la vente ayant la référence « 5091 » ? (Alias : prix frais d'agence inclus) :<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Indiquez le prix total (prix et frais d'agence) pour le logement ayant la référence « 5873 »<br>
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Si l'ensemble des logements étaient vendus ou loués demain, quel serait le bénéfice généré grâce aux frais d'agence et pour chaque agence (Alias : benefice, classement : par ordre croissant des gains) :
-                            <br>
-                            <strong>
-                                 <code>
-                                       ;
-                            </code>
-                       </strong>
-                        </li>
-                        <li>
-                            Affichez les id des biens en location, les prix, suivis des frais d'agence (classement : dans l'ordre croissant des prix) :<br>
+                            8 - Affichez le nombre de biens à vendre par ville :
                             <br>
                             <strong>
                                  <code>
@@ -1037,8 +878,9 @@
                        </strong>
 
                         </li>
+                        <br>
                         <li>
-                            Quel est le nom de l'agence proposant le logement le moins cher à louer ? :<br>
+                            9 - Quels sont les id des logements destinés à la location ? :<br>
                             <br>
                             <strong>
                                  <code>
@@ -1047,7 +889,7 @@
                        </strong>
                         </li>
                         <li>
-                            Affichez le prénom et la ville où se trouve le logement de chaque propriétaire :<br>
+                            10 - Quels sont les id des logements entre 20 et 30m² ? :<br>
                             <br>
                             <strong>
                                  <code>
@@ -1055,6 +897,147 @@
                             </code>
                        </strong>
                         </li>
+                        <li>
+                           11 - Quel est le prix vendeur du logement le moins cher a vendre ? :<br>
+                            <br>
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li>
+                            12 - Dans quelle ville se trouve les maisons à vendre ? :<br>
+                            <br>
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li>
+                            13 - L'agence Orpi souhaite diminuer les frais qu'elle applique sur le logement ayant l'id « 5246». Passer les frais de ce logement de 800 à 730€
+                            <br>
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li>
+                            <br>
+                            14 - Quels sont les logements gérés par l'agence « laforet » :
+                            <br>
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li>
+                            <br>
+                            15 - Affichez le nombre de propriétaires dans la ville de Paris (Alias : Nombre propriétaire parisien) :<br>
+                            <br>
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li>
+                            <br>
+                            16 - Afficher les infos des trois premières personnes souhaitant acheter un logement :<br>                           
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li>
+                            <br>
+                            17 - Affichez les noms des agences qui vendent le logement ayant la référence « 5770 » :<br>
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li>
+                            <br>
+                            18 - Affichez les prénoms des personnes souhaitant accéder à un logement sur la ville de Lyon :<br>
+                          <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li><br>
+                           19 - Affichez les prénoms des personnes souhaitant accéder à un logement en location sur la ville de Paris :<br>
+                         <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li><br>
+                            20 - Affichez les prénoms des personnes souhaitant acheter un logement de la plus grande à la plus petite superficie :<br>
+                        <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li><br>
+                            21 - Quel sont les prix finaux proposés par les agences pour la maison à la vente ayant la référence « 5091 » ? (Alias : prix frais d'agence inclus) :<br>
+                        <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <br>
+                        <li>
+                            22 - Indiquez le prix total (prix et frais d'agence) pour le logement ayant la référence « 5873 »<br>
+                        <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li><br>                            
+                            23 - Si l'ensemble des logements étaient vendus ou loués demain, quel serait le bénéfice généré grâce aux frais d'agence et pour chaque agence (Alias : benefice, classement : par ordre croissant des gains) :<br>                     
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li>
+                        <li><br>
+                            24 - Affichez les id des biens en location, les prix, suivis des frais d'agence (classement : dans l'ordre croissant des prix) :<br>
+                            <br>
+                            <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+
+                        </li><br>
+                        <li>
+                            25 - Quel est le nom de l'agence proposant le logement le moins cher à louer ? :<br>
+                        <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li><br>
+                        <li>
+                            26 - Affichez le prénom et la ville où se trouve le logement de chaque propriétaire :<br>
+                     <strong>
+                                 <code>
+                                       ;
+                            </code>
+                       </strong>
+                        </li><br>
 
                     </ul>
 
