@@ -1,0 +1,15 @@
+:root {
+    font-size:  62.5;
+}
+boby {
+    font-size: 1.5rem;
+}
+img[src="assets/img/logo.png"] {
+    width: 50px;
+}
+h1 {
+    font-size: 3.1rem;
+}
+span {
+    color: #ff3366;
+}
