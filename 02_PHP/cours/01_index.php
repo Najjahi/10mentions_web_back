@@ -42,18 +42,16 @@
   </nav>
  <header class="p-5 m-4 bg-light rounded-3 border">
     <section class =" container py-5 "></section>
-    <h1 class =" display-5 fw-bold"> Introduction au PHP    </h1>
-    <p class ="col-md-12 fs-4"> PHP ce sigle est un achronyme récursif <span> Préprocesseur Hypertexte PHP</span> (PHP hypertext Processeur).Il s'agit d'un langage de script coté serveur open source utilisé pour le developpement web dynamique et peut etre intégré dans des codes HTML, noter bien qu'un navigateur ne comprend pas le PHP </p>
-
+      <h1 class =" display-5 fw-bold"> Introduction au PHP</h1>
+       <p class ="col-md-12 fs-4"> PHP: ce sigle est un achronyme récursif <span> Préprocesseur Hypertexte PHP</span> (PHP hypertext Processeur).Il s'agit d'un langage de script côté serveur open source utilisé pour le developpement web dynamique et peut être intégré dans des codes HTML, noter bien qu'un navigateur ne comprend pas le PHP </p>
  </header>
  
-
  <main class="container-fluid px-5">
     <section class="row mt-5">
-        <h2 class="text-center ">1 - Pourquoi apprendre php </h2>
+        <h2 class="text-center "> 1 - Pourquoi apprendre php </h2>
         <div class="col-12 col-md-8 mt-3">
             <ul> 
-              <li>C'est un langage open-source. Cela signifie que PHP est librement disponible pour être utilisé et implémenté.</li>
+              <li> C'est un langage open-source. Cela signifie que PHP est librement disponible pour être utilisé et implémenté.</li>
               <li>Il est indépendant de la plate-forme, ce qui signifie que les applications développées à l'aide de PHP peuvent s'exécuter dans n'importe quel environnement.</li>
               <li>Il a une grande communauté de développeurs. La programmation consiste à aider et à être aidé; par conséquent, une grande communauté signifierait plus d'aide.</li>
               <li>Il est régulièrement mis à jour et fonctionne donc bien avec les dernières technologies.</li>
