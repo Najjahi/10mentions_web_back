@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -17,6 +18,10 @@
 
     <body>
         <header>
+            
+        <?php
+            $statut = true;
+        ?>
         $statut = 'connecté';
   ?>
   <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
@@ -73,47 +78,3 @@
             </nav>
         </header>
         <hr>
-        <main class="container-fluid px-5">
-                    <div class="bg-warning p-4 mb-5">
-                        <?php
-                        echo '<pre>';
-                        var_dump($_GET);
-                        echo '</pre>';
-                        ?>
-                    </div>
-                    <form action="#" method="GET">
-                        <div class="mb-3">
-                          <label for="exampleInputEmail1" class="form-label">Email address</label>
-                          <input type="email" class="form-control" name="exampleInputEmail1" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                          <label for="exampleInputPassword1" class="form-label">Password</label>
-                          <input type="password" class="form-control" name="exampleInputPassword1" id="exampleInputPassword1">
-                        </div>
-                        <!-- <div class="mb-3 form-check">
-                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                          <label class="form-check-label" for="exampleCheck1">Check me out</label> 
-                        </div> -->
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                
-            
-
-
-        </main>
-        <footer>
-        </footer>
-        <!-- Bootstrap JavaScript Libraries -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
-    </body>
-</html>

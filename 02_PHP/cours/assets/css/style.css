@@ -1,7 +1,7 @@
 :root {
-    font-size:  62.5;
+    font-size:  62.5%;
 }
-boby {
+body {
     font-size: 1.5rem;
 }
 img[src="assets/img/logo.png"] {
