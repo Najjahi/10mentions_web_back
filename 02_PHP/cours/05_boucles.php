@@ -90,7 +90,7 @@
                             <select>";
                                 while ($anneeForm >= 1920) {
                                     echo "<option value='$anneeForm'>$anneeForm</option>";
-                                    $anneeForm--;
+                                    $anneeForm--;// Décrémentation de la variable anneeForm afin que la condition d'entrée devienne "false" à un moment donné 
                                 }
                     echo "  </select>
                         </form>";

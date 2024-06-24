@@ -98,8 +98,7 @@
                 <h3 class="text-primary text-center mt-5">Les tableaux indexés</h3>
                 <h4>1- Création d'un tableau avec "<span>indexation automatique</span>"</h4>
                 <?php
-                    $tableau1 = ['Red', 'Blue', 'Purple'];
-                    // Le premier index commence à l'entier 0
+                    $tableau1 = ['Red', 'Blue', 'Purple'];  // Le premier index commence à l'entier 0
                     echo '<pre>';
                     var_dump($tableau1);
                     echo '</pre>'; 
@@ -140,8 +139,7 @@
                     echo 'La première couleur du tableau 1 est : ' . $color1['b'] . '<br>';
                     echo "La deuxième couleur du tableau 1 est : {$color1['r']} <br>";
                     echo "La troisème couleur du tableau 1 est : $color1[p] <br>"; // Quand un tableau associatif est écrit dans des guillemets ou des doubles quotes, il perd les quotes autour de son indice
-                    
-                ?>
+                                    ?>
             </div>
             <div class="col-sm-12">
                 <h3 class="text-primary text-center my-5">Les tableaux multidimensionnels</h3>
@@ -167,7 +165,6 @@
                                 ],
                             ];
                             echo $tableau_multi_1[0][1];
-
                         echo '<pre>';
                         var_dump($tableau_multi_1);
                         echo '</pre>'; 
@@ -219,7 +216,7 @@
                                 ],
                             ];
                             echo '<pre>';
-                            var_dump($tableau_multi_2);
+                            var_dump($tableau_multi_3);
                             echo '</pre>'; 
                         ?>
                     </div>
@@ -399,7 +396,7 @@
                     ?>
                     <option value="<?=$values?>"><?=$values?></option>
                     <?php
-                    }
+                }
                     ?>
                 </select>
             </form>

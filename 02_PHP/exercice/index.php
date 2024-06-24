@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        
+    <head>        
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -12,7 +11,6 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <title>Title</title>
     </head>
-
     <body>
         <header>
         $statut = 'connecté';

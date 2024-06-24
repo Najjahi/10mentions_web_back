@@ -1,10 +1,10 @@
   
-  <?php 
-    $title =  " cours PHP -les variables en php"; 
-    $titre = "Les variables et les constantes en PHP";
-    $mpnparagraphe = null;
-    include_once ("inc/header.inc.php")
-    ?>
+            <?php 
+                $title =  " cours PHP -les variables en php"; 
+                $titre = "Les variables et les constantes en PHP";
+                $mpnparagraphe = null;
+                include_once ("inc/header.inc.php")
+                ?>
   
                <?php
             echo "<h2> Les variables utilisateurs/ affectation / concaténation </h2>";
