@@ -40,13 +40,13 @@
                                 Catégories
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">science fiction</a></li>
-                                <li><a class="dropdown-item" href="#">Aventuure</a></li>
+                                <li><a class="dropdown-item text-danger" href="#">Action</a></li>
+                                <li><a class="dropdown-item text-danger " href="#">science fiction</a></li>
+                                <li><a class="dropdown-item text-danger " href="#">Aventuure</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Inscription</a>
+                            <a class="nav-link" href="register.php">Inscription</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Connexion</a>
