@@ -6,9 +6,23 @@
 
 function debug($var) {
 
-    echo '<pre class ="border border-dark bg-light text-primary w-50 p-3>',
+    echo '<pre class ="border border-dark bg-light text-danger fw-gold w-50 p-3">';
     var_dump($var);    
-    echo '<pre>';
+    echo '</pre>';
+}
+
+################# fonctions d'alert ######### #######################
+
+function alert(string $contenu, string $class){
+
+    return 
+        "<div class=\"alert alert-$class alert-dismissible fade show text-center w-50 m-auto mb-5\" role=\"alert\">
+        $contenu
+     <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
+ </div>";
+
+
+
 }
 
 ################# fonctions de la connection à la BDD #######################
