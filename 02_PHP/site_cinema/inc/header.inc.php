@@ -49,7 +49,7 @@
                             <a class="nav-link" href="register.php">Inscription</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Connexion</a>
+                            <a class="nav-link" href="authentification.php">Connexion</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Backoffice</a>
