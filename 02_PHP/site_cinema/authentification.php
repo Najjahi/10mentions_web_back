@@ -1,8 +1,8 @@
-a
+
 <?php
 
 require_once "inc/functions.inc.php";
-require_once "inc/header.inc.php";
+
 
 $info = "";
 
@@ -37,14 +37,13 @@ if (!empty($_POST)) {
         
         if($user) {
 
-            if (password_verify($mpd, $user['mdp'])) {
-                
+            if (password_verify($mdp, $user['mdp'])) {              
 
-            // Je vérifie si le mot de passe est bon
-            // password_verify() pour vérifier si un mot de passe correspond à un mot de passe haché créé par la password_hash().
-            // Si le hash du mdp de la BDD correspond au $mdp du formulaire, alors password_verify retourne true
+           //Je vérifie si le mot de passe est bon
+           // password_verify() pour vérifier si un mot de passe correspond à un mot de passe haché créé par la password_hash().
+           // Si le hash du mdp de la BDD correspond au $mdp du formulaire, alors password_verify retourne true
                 
-        /*  Suite à la connexion on vas crére ce qu'on appelle une session :
+        /*  Suite à la connexion on vas créer ce qu'on appelle une session :
             Principe des sessions : un fichier temporaire appelée "session" est crée sur le serveur, avec un identifiant unique . Les sessions constituent un moyen de stocker les données sur le serveur. Cette session est liée à un internaute car ces données sont propres à ce dernier,  Les données du fichier de session sont accessibles et manipulables à partir de la superglobale $_SESSION, elle est mêmoriser par le serveur et est disponible tant que la session de l'utilsateur est maintenu sur le serveur.
             Quand une session est créée sur le serveur, ce dernier envoie son identifiant (unique) au client sous forme d'un cookie.
             un cookie est déposé sur le poste de l'internaute avec l'identifiant (au nom de PHPSESSID). Ce cookie se détruit lorsqu'on quitte le navigateur.
@@ -54,26 +53,29 @@ if (!empty($_POST)) {
             session_start(); // permet de démarrer une nouvelle session ou reprendre une session déjà existante. On utilise une session qiuand cette fonction est exécutée, le serveur vérifie si la sesssion  qui a le même identifiant envoyé existe 
             //Ensuite on stock les données dans cette session
             $_SESSION['user'] = $user;
-            debug($_SESSION['user']);
-            }
-        }
-        
+            // nous créons une session avec les infos de l'utilisateur provenant de la BDD. 
+            // cette variable créé et affecté dans cette page sera accessible partout dans le site une fois la fonction session_start() est appelé
 
-      
+            header('location:profil.php'); // rediriger l'utilisateur vers la page profil.php
+           
+        } else {
+              $info =alert('les identifiants sont incorrectes1','danger');
+
+            }
+        } else {
+            $info = alert('les identifiants sont incorrectes2','danger');
+        }            
     }
 }
+require_once "inc/header.inc.php";
 ?>
-
 <main style="background:url(assets/img/5818.png) no-repeat; background-size: cover; background-attachment: fixed;">
 
     <div class="w-75 m-auto p-5" style="background: rgba(20, 20, 20, 0.9);">
         <h2 class="text-center mb-5 p-3">Créer un compte</h2>
-        <?php
-      
+        <?php      
         echo $info;
-
         ?>
-
 <form action="" method="post" class="p-5" >  
                 <div class="row mb-3">
                     <div class="col-12 mb-5">

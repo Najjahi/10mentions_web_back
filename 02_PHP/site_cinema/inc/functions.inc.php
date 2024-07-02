@@ -1,6 +1,16 @@
 <!-- fichier qui contient les fonctions php à utuliser dans notre site -->
 <?php
+
+// Déclaration du lancement de la session
+
 session_start();
+
+############################constante pour definir le chemin du site #############################
+
+ // constante qui définit les dossiers dans lesquels se situe le site pour pouvoir déterminer des chemins absolus à partir de localhost (on ne prends localhost). Ainsi nous écrivons tous les chemins (exp : src, href ) en absolu avec cette constante
+
+//  define('RACINE_SITE',"http://localhost/10mentions_web_back/02_PHP/site_cinema/admin/gestion_film.php");
+ define('RACINE_SITE',"http://10mentions_web_back.local/02_PHP/site_cinema/");
 
 
 ##################################### Fonction pour debuger #############################
@@ -19,12 +29,22 @@ function alert(string $contenu, string $class){
                 $contenu
             <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
         </div>";
+}
 
+##################################### Fonction pour dla deconnexion #############################
 
+function logOut() {
 
+    if (isset($_GET['action']) && $_GET['action'] == 'deconnexion'){
+       
+        unset($_SESSION['user']);
+        header('location:index.php');
+       
+    }
 
 
 }
+logOut();
 
 
 ##################################### Fonction pour la connexion à la BDD #############################
@@ -47,8 +67,6 @@ function alert(string $contenu, string $class){
         // constante pour le nom de la BDD
 
         define("DBNAME", "cinema");
-
-
 
     function connexionBdd() {
 
@@ -78,12 +96,8 @@ function alert(string $contenu, string $class){
             //le catch sera exécuter dès lors on aura un problème da le try
 
             return $pdo;  //ici on utilise un return car on récupère l'objet de la fonction que l'on vas appelé  dans plusieurs autre fonctions
-
-    }
-
-
-                            ################################# Création des tables  ###########################
-
+        }
+        ################################# Création des tables  ###########################
 
     //Table catégories
 
@@ -122,7 +136,6 @@ function alert(string $contenu, string $class){
                     stock BIGINT NOT NULL
                     )";
             $request = $cnx ->exec($sql);
-
        }
     //    createTableFilms();
 
@@ -151,19 +164,16 @@ function alert(string $contenu, string $class){
         $request = $cnx->exec($sql);
 
     }
-
         //  createTableUsers();
 
+        ################################# Création des clés étrangères  ###########################
 
-                    ################################# Création des clés étrangères  ###########################
-
-                    // ALTER TABLE ORDERS ADD FOREIGN KEY (Customer_SID) REFERENCES CUSTOMER (SID);
+        // ALTER TABLE ORDERS ADD FOREIGN KEY (Customer_SID) REFERENCES CUSTOMER (SID);
 
         // $tableF : table où on va créer la clé étrangère
         // $tableP : table à partir de laquelle on récupère la clé primaire
         // $keyF : la clé étrangère
         // $keyP :  la clé primaire
-
 
         function foreignKey( string $tableF, string $keyF, string $tableP, string $keyP) {
 
@@ -173,12 +183,10 @@ function alert(string $contenu, string $class){
             $request = $cnx->exec($sql);
         }
 
-
         // Création de la clé étrangère dans la table films
         // foreignKey('films', 'category_id', 'categories', 'id_category');
 
-                ################################# Fonctons du CRUD pour les utilisateurs ###########################
-
+        ################################# Fonctons du CRUD pour les utilisateurs ###########################
 
         // Inscription
 
@@ -189,7 +197,6 @@ function inscriptionUsers(string $lastName, string $firstName, string $pseudo, s
                     1- On prépare la requête
                     2- On lie le marqueur à la requête
                     3- On exécute la requête
-
             */
 
             $cnx = connexionBdd();
@@ -217,8 +224,7 @@ function inscriptionUsers(string $lastName, string $firstName, string $pseudo, s
 
         }
 
-///////////////////////////////////////////////// Une fonction pour vérifier si un email existe dans la BDD  /////////////////////////////////////////////////////////
-
+////////////////////// Une fonction pour vérifier si un email existe dans la BDD  ////////////
 
 function checkEmailUser(string $email) :mixed{
 
@@ -240,8 +246,7 @@ function checkEmailUser(string $email) :mixed{
     return $result;
 }
 
-/////////////////////// Une fonction pour vérifier si le pseudo existe dans la BDD  /////////////////////////////////////////////////////////
-
+/////////////////////// Une fonction pour vérifier si le pseudo existe dans la BDD  ///////////
 
 function checkPseudoUser(string $pseudo) :mixed{
 
@@ -269,13 +274,30 @@ function checkUser(string $pseudo, string $email) : mixed{
     ));
     $result = $request->fetch();
     return $result;
-
-
 }
+########## fonctions pour vérifier les utilisateurs #################################
 
+function allUsers() :mixed{
 
+    $cnx = connexionBdd();
+    $sql = "SELECT * FROM users" ; 
+    $request= $cnx->query($sql);     
+    $result = $request->fetchAll(); // fetchAll() récupère tout les résultats dans la reqûête et les sort sous forme d'un tableau à 2 dismensions
+    return $result;
+    }
 
+    ########## fonctions pour supprimer un utilisateur #################################
+    function deleteUser(int $id_user):void {
 
+        $cnx = connexionBdd();
+        $sql = "DELETE FROM users WHERE id_user = :id_user"; 
+        $request= $cnx->prepare($sql);     
+        $result = $request->execute(array(
+            "id_uses" => $id_user
+        )); 
+        
+        }
+    
+    ?>
 
-
-?>
+    

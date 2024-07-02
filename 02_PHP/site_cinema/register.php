@@ -1,12 +1,9 @@
-a
-<?php
 
+<?php
 require_once "inc/functions.inc.php";
 require_once "inc/header.inc.php";
 
 $info = "";
-
-
 
 if (!empty($_POST)) {
 
@@ -39,8 +36,6 @@ if (!empty($_POST)) {
         $zip = trim($_POST['zip']);
         $city = trim($_POST['city']);
         $country = trim($_POST['country']);
-
-
 
         $regex = '/[0-9]/'; // je stocks mon expression rationnelle dans une variable
 
@@ -89,7 +84,6 @@ if (!empty($_POST)) {
             $info .= alert("Le mot de passe et la confirmation doivent être identiques.", "danger");
         }
         // if (!isset($civility) || ( $civility !='f' && $civility !='h' )) {
-
 
         //     $info .= alert("La civilité n'est pas valide.", "danger");
         // }
