@@ -59,7 +59,7 @@
 
                         ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="profil.php">Compte</a>
+                                <a class="nav-link" href="profil.php"> <sup class="badge text-bg-danger"><?= $_SESSION['user'] ['firstName']?></sup></a>
                             </li> 
                             
                             <?php

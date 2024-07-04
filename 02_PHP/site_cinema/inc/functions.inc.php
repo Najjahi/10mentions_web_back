@@ -80,7 +80,7 @@ logOut();
                 // avec la variable dsn et les constantes d'environnement
 
                 $pdo = new PDO($dsn, DBUSER, DBPASS);
-                echo "je suis connectée";
+                // echo "je suis connectée";
 
                 //On définit le mode d'erreur de PDO sur Exception
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -190,7 +190,7 @@ logOut();
 
         // Inscription
 
-function inscriptionUsers(string $lastName, string $firstName, string $pseudo, string $email,  string $phone, string $mdp, string $civility, string $birthday, string $address, string $zip, string $city, string $country) : void{
+        function inscriptionUsers(string $lastName, string $firstName, string $pseudo, string $email,  string $phone, string $mdp, string $civility, string $birthday, string $address, string $zip, string $city, string $country) : void{
 
             /* Les requêtes préparer sont préconisées si vous exécutez plusieurs fois la même requête. Ainsi vous évitez au SGBD de répéter toutes les phases analyse/ interpretation / exécution de la requête (gain de performance). Les requêtes préparées sont aussi utilisées pour nettoyer les données et se prémunir des injections de type SQL.
 
@@ -198,7 +198,43 @@ function inscriptionUsers(string $lastName, string $firstName, string $pseudo, s
                     2- On lie le marqueur à la requête
                     3- On exécute la requête
             */
+            // Créer un tableau associatif avec les noms des colonnes comme clés
+    // Les noms des clés du tableau $data correspondent aux noms des colonnes dans la base de données.
+    
+    $data = [
+        'firstName' => $firstName,
+        'lastName' => $lastName,
+        'pseudo' => $pseudo,
+        'mdp' => $mdp,
+        'email' => $email,
+        'phone' => $phone,
+        'civility' => $civility,
+        'birthday' => $birthday,
+        'address' => $address,
+        'zip' => $zip,
+        'city' => $city,
+        'country' => $country
+    ];
 
+    // pour écheper les données et les traiter contre les fails JS (XSS)
+
+        foreach ($data as $key => $value){
+
+            $data[$key] = htmlspecialchars($value, ENT_QUOTES,'UTF-8');
+        
+        /* 
+            htmlspecialchars est une fonction qui convertit les caractères spéciaux en entités HTML, cela est utilisé afin d'empêcher l'exécution de code HTML ou JavaScript : les attaques XSS (Cross-Site Scripting) injecté par un utilisateur malveillant en échappant les caractères HTML potentiellement dangereux . Par défaut, htmlspecialchars échappe les caractères suivants :
+
+            & (ampersand) devient &amp;
+            < (inférieur) devient &lt;
+            > (supérieur) devient &gt;
+            " (guillemet double) devient &quot;*/
+
+        /*
+            ENT_QUOTES : est une constante en PHP  qui onvertit les guillemets simples et doubles. => ' (guillemet simple) devient &#039; 
+            'UTF-8' : Spécifie que l'encodage utilisé est UTF-8.
+        */
+    }
             $cnx = connexionBdd();
 
             // on prépare la requête
@@ -207,19 +243,21 @@ function inscriptionUsers(string $lastName, string $firstName, string $pseudo, s
 
             $request = $cnx->prepare($sql); //prepare() est une méthode qui permet de préparer la requête sans l'exécuter. Elle contient un marqueur :firstName qui est vide et attend une valeur.
             // $requet est à cette ligne  encore un objet PDOstatement .
-            $request->execute(array(
-                ":lastName" => $lastName,
-                ":firstName" => $firstName,
-                ":pseudo" => $pseudo,
-                ":email" => $email,
-                ":phone" => $phone,
-                ":mdp" => $mdp,
-                ":civility" => $civility,
-                ":birthday" => $birthday,
-                ":address" => $address,
-                ":zip" => $zip,
-                ":city" => $city,
-                ":country" => $country
+            
+            $request->execute(array( 
+            // Le tableau associatif contient les valeurs échappées à insérer dans la base de données, associées aux paramètres nommés de la requête préparée.
+                ':firstName' => $data['firstName'],
+                ':lastName' => $data['lastName'],
+                ':pseudo' => $data['pseudo'],
+                ':mdp' => $data['mdp'],
+                ':email' => $data['email'],
+                ':phone' => $data['phone'],
+                ':civility' => $data['civility'],
+                ':birthday' => $data['birthday'],
+                ':address' => $data['address'],
+                ':zip' => $data['zip'],
+                ':city' => $data['city'],
+                ':country' => $data['country'],
             )); // execute() permet d'exécuter toute la requête préparée avec prepare().
 
         }
@@ -292,12 +330,79 @@ function allUsers() :mixed{
         $cnx = connexionBdd();
         $sql = "DELETE FROM users WHERE id_user = :id_user"; 
         $request= $cnx->prepare($sql);     
-        $result = $request->execute(array(
-            "id_uses" => $id_user
+        $request->execute(array(
+            "id_user" => $id_user
         )); 
         
         }
-    
+
+        ########## fonctions pour ajouter une categorie #################################
+        function addCat(string $nameCat, string $descriptionCat) : void{
+            $cnx = connexionBdd();
+            $sql = "INSERT INTO categories (name, description) VALUES (:name, :description)";  
+            $request = $cnx->prepare($sql); 
+            $request->execute(array(
+                ':name' => $nameCat ,
+                ':description' => $descriptionCat
+            ));
+        }
+
+         ########## fonctions pour changer le role  #################################
+        
+
+        
+
+
+     ########## fonctions pour modifier une categorie #################################
+    //  function UpdateCat(int $id_category):void {
+
+    //     $cnx = connexionBdd();
+    //     $sql = "UPDATE categories SET name= :nom , description= :description WHERE id_category = :id";
+    //     $request= $cnx->prepare($sql);     
+    //     $request->execute(array(
+    //         ':nom' => $nameCat ,
+    //         ':description' => $descriptionCat,
+    //         ':id' => $id
+    //     )); 
+        
+    //     }
+    //     ########## fonctions pour supprimer une categorie #################################
+    //  function DeleteCat(int $id_ucat):void {
+
+    //     $cnx = connexionBdd();
+    //     $sql = "UPDATE FROM users WHERE id_categorie = :id_cat"; 
+    //     $request= $cnx->prepare($sql);     
+    //     $request->execute(array(
+    //         ":id_cat" => $id_cat
+    //     )); 
+        
+        //}
+
+         ########## fonctions pour modifier le role  #################################
+         function UpdateRole(string $role, string $id_user):void {
+
+                $cnx = connexionBdd();
+                $sql = "UPDATE users SET role =:role WHERE id_user = :id_user";
+                $request= $cnx->prepare($sql);     
+                $request->execute(array(
+                    ":role" => $role,
+                    ":id_user" => $id_user,
+                   
+                )); 
+                
+                }
+         ########## fonctions pour recupere un seule utilisateur  #################################
+         function showUser(int $id_user) :mixed {
+
+            $cnx = connexionBdd();
+            $sql = "SELECT * FROM users WHERE id_user = :id_user";
+            $request= $cnx->prepare($sql);     
+            $request->execute(array(
+                  ":id_user" => $id_user,               
+            )); 
+            $result=$request->fetch();
+            return $result;
+            
+            }
     ?>
 
-    

@@ -218,12 +218,17 @@ form.back button {
 }
 
 
-table, .sidebarre {
+table, .sidebarre, .categorie {
     background-color: #353535;
     color: white !important;
     box-shadow: var(--box-shadow-light) !important;
 }
+form .categorie {
+    background-color: #353535;
+    color: white !important;
 
+    box-shadow: var(--box-shadow-light) !important
+}
 
 .bi {
     color: var(--red);
