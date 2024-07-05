@@ -38,10 +38,10 @@ function logOut() {
     if (isset($_GET['action']) && $_GET['action'] == 'deconnexion'){
        
         unset($_SESSION['user']);
-        header('location:index.php');
+        header('location:'.RACINE_SITE.'index.php');
+        // header('location:index.php');
        
     }
-
 
 }
 logOut();
@@ -324,85 +324,126 @@ function allUsers() :mixed{
     return $result;
     }
 
-    ########## fonctions pour supprimer un utilisateur #################################
-    function deleteUser(int $id_user):void {
+########## fonctions pour supprimer un utilisateur #################################
+function deleteUser(int $id_user):void {
+
+    $cnx = connexionBdd();
+    $sql = "DELETE FROM users WHERE id_user = :id_user"; 
+    $request= $cnx->prepare($sql);     
+    $request->execute(array(
+        "id_user" => $id_user
+    )); 
+    
+    }
+
+    ########### fonction pour afficher un utilisateur #####################""
+    function showUser(int $id):mixed{
+        $cnx = connexionBdd();
+        $sql = "SELECT * FROM users WHERE id_user = :id_user";
+        $request = $cnx->prepare($sql);
+        $request->execute(array(
+            ':id_user' => $id
+        ));
+        $result = $request->fetch();
+        return $result;
+    }
+
+
+
+    ####################### fonction pour modifier un utilisateur #####################""
+
+    function updateRole(string $role, int $id) :void{
+        $cnx = connexionBdd();
+        $sql = "UPDATE users SET role = :role WHERE id_user = :id_user";
+        $request = $cnx->prepare($sql);
+        $request->execute(array(
+            ':role' => $role,
+            ':id_user' => $id
+        ));
+    }
+
+########## fonctions pour afficher une categorie #################################        
+
+function showCategory(string $name) :mixed{
 
         $cnx = connexionBdd();
-        $sql = "DELETE FROM users WHERE id_user = :id_user"; 
-        $request= $cnx->prepare($sql);     
+        $sql = "SELECT * FROM categories WHERE name = :name";
+        $request = $cnx->prepare($sql);
         $request->execute(array(
-            "id_user" => $id_user
-        )); 
-        
+            ":name" => $name
+        ));
+        $result = $request->fetch();
+        return $result;
         }
 
-        ########## fonctions pour ajouter une categorie #################################
-        function addCat(string $nameCat, string $descriptionCat) : void{
-            $cnx = connexionBdd();
-            $sql = "INSERT INTO categories (name, description) VALUES (:name, :description)";  
-            $request = $cnx->prepare($sql); 
-            $request->execute(array(
-                ':name' => $nameCat ,
-                ':description' => $descriptionCat
-            ));
+        ########## fonctions pour afficher une categorie #################################        
+
+function showCategoryViaId(int $id):mixed{
+
+    $cnx = connexionBdd();
+    $sql = "SELECT * FROM categories WHERE id_category = :id";
+    $request = $cnx->prepare($sql);
+    $request->execute(array(
+        ":id" => $id
+    ));
+    $result = $request->fetch();
+    return $result;
+    }
+
+
+    
+    ////////////////////////  fonction pour insérer une catégorie ///////////////////////////////
+    
+    function addCategory(string $nameCategory, string $description) : void {
+    
+        $pdo = connexionBdd();
+        $sql= "INSERT INTO categories (name, description) VALUES (:name, :description)"; 
+        // requête d'insertion que je stock dans une variable
+        $request = $pdo->prepare($sql); // je prépare ma fonction et je l'exécute
+        $request->execute(array(
+    
+                ':name' => $nameCategory,
+                ':description' => $description
+        ));
         }
 
-         ########## fonctions pour changer le role  #################################
-        
-
-        
-
-
-     ########## fonctions pour modifier une categorie #################################
-    //  function UpdateCat(int $id_category):void {
-
-    //     $cnx = connexionBdd();
-    //     $sql = "UPDATE categories SET name= :nom , description= :description WHERE id_category = :id";
-    //     $request= $cnx->prepare($sql);     
-    //     $request->execute(array(
-    //         ':nom' => $nameCat ,
-    //         ':description' => $descriptionCat,
-    //         ':id' => $id
-    //     )); 
-        
-    //     }
-    //     ########## fonctions pour supprimer une categorie #################################
-    //  function DeleteCat(int $id_ucat):void {
-
-    //     $cnx = connexionBdd();
-    //     $sql = "UPDATE FROM users WHERE id_categorie = :id_cat"; 
-    //     $request= $cnx->prepare($sql);     
-    //     $request->execute(array(
-    //         ":id_cat" => $id_cat
-    //     )); 
-        
-        //}
-
-         ########## fonctions pour modifier le role  #################################
-         function UpdateRole(string $role, string $id_user):void {
-
-                $cnx = connexionBdd();
-                $sql = "UPDATE users SET role =:role WHERE id_user = :id_user";
-                $request= $cnx->prepare($sql);     
-                $request->execute(array(
-                    ":role" => $role,
-                    ":id_user" => $id_user,
-                   
-                )); 
-                
-                }
-         ########## fonctions pour recupere un seule utilisateur  #################################
-         function showUser(int $id_user) :mixed {
-
-            $cnx = connexionBdd();
-            $sql = "SELECT * FROM users WHERE id_user = :id_user";
-            $request= $cnx->prepare($sql);     
-            $request->execute(array(
-                  ":id_user" => $id_user,               
-            )); 
-            $result=$request->fetch();
-            return $result;
+    /////////////// Une fonction pour récupérer toutes les catégories ////////////////////////////////
+    
+    function allCategories() : mixed{
             
-            }
-    ?>
+        $pdo = connexionBdd();
+        $sql= "SELECT * FROM categories"; // requête d'insertion que je stock dans une variable
+        $request = $pdo->query($sql); 
+        $result = $request->fetchAll();// j'utilise fetchAll() pour récupérer toute les ligne à la fois 
+        return $result; // ma fonction retourne un tableau ave les données récupérer de la BDD
+    }
+    
+    /////////////// Une fonction pour supprimer une catégorie//////////////////////////
+    
+    function deleteCategory(int $id) :void {
+    
+        $pdo = connexionBdd();
+        $sql = "DELETE FROM categories WHERE id_category = :id";
+        $request = $pdo->prepare($sql);
+        $request->execute(array(
+            ':id' => $id
+        ));
+    
+    
+    }
 
+    /////////////// Une fonction pour modifier une catégorie//////////////////////////
+    
+    function updateCategory(int $id, string $name, string $description) :void {
+    
+        $pdo = connexionBdd();
+        $sql = "UPDATE categories SET name = :name, description = :description WHERE id_category = :id";
+        $request = $pdo->prepare($sql);
+        $request->execute(array(
+            ':id' => $id,
+            ':name' => $name,
+            ':description' => $description
+        ));
+    
+    
+    }
