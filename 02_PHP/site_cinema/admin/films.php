@@ -1,6 +1,7 @@
 <?php
 require_once "../inc/functions.inc.php";
 
+// fichier qui affiche tout les films
 // gestion de l'accessibilité des pages admin 
 if (empty($_SESSION['user'])) {
     header('location:'.RACINE_SITE.'authentification.php');

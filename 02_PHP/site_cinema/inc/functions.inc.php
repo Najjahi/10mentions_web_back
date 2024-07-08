@@ -364,31 +364,31 @@ function deleteUser(int $id_user):void {
 
 ########## fonctions pour afficher une categorie #################################        
 
-function showCategory(string $name) :mixed{
+    function showCategory(string $name) :mixed{
+
+            $cnx = connexionBdd();
+            $sql = "SELECT * FROM categories WHERE name = :name";
+            $request = $cnx->prepare($sql);
+            $request->execute(array(
+                ":name" => $name
+            ));
+            $result = $request->fetch();
+            return $result;
+            }
+
+        ########## fonctions pour afficher une categorie #################################        
+
+    function showCategoryViaId(int $id):mixed{
 
         $cnx = connexionBdd();
-        $sql = "SELECT * FROM categories WHERE name = :name";
+        $sql = "SELECT * FROM categories WHERE id_category = :id";
         $request = $cnx->prepare($sql);
         $request->execute(array(
-            ":name" => $name
+            ":id" => $id
         ));
         $result = $request->fetch();
         return $result;
         }
-
-        ########## fonctions pour afficher une categorie #################################        
-
-function showCategoryViaId(int $id):mixed{
-
-    $cnx = connexionBdd();
-    $sql = "SELECT * FROM categories WHERE id_category = :id";
-    $request = $cnx->prepare($sql);
-    $request->execute(array(
-        ":id" => $id
-    ));
-    $result = $request->fetch();
-    return $result;
-    }
 
 
     
@@ -396,10 +396,10 @@ function showCategoryViaId(int $id):mixed{
     
     function addCategory(string $nameCategory, string $description) : void {
     
-        $pdo = connexionBdd();
+        $cnx = connexionBdd();
         $sql= "INSERT INTO categories (name, description) VALUES (:name, :description)"; 
         // requête d'insertion que je stock dans une variable
-        $request = $pdo->prepare($sql); // je prépare ma fonction et je l'exécute
+        $request = $cnx->prepare($sql); // je prépare ma fonction et je l'exécute
         $request->execute(array(
     
                 ':name' => $nameCategory,
@@ -411,9 +411,9 @@ function showCategoryViaId(int $id):mixed{
     
     function allCategories() : mixed{
             
-        $pdo = connexionBdd();
+        $cnx = connexionBdd();
         $sql= "SELECT * FROM categories"; // requête d'insertion que je stock dans une variable
-        $request = $pdo->query($sql); 
+        $request = $cnx->query($sql); 
         $result = $request->fetchAll();// j'utilise fetchAll() pour récupérer toute les ligne à la fois 
         return $result; // ma fonction retourne un tableau ave les données récupérer de la BDD
     }
@@ -422,9 +422,9 @@ function showCategoryViaId(int $id):mixed{
     
     function deleteCategory(int $id) :void {
     
-        $pdo = connexionBdd();
+        $cnx = connexionBdd();
         $sql = "DELETE FROM categories WHERE id_category = :id";
-        $request = $pdo->prepare($sql);
+        $request = $cnx->prepare($sql);
         $request->execute(array(
             ':id' => $id
         ));
@@ -436,14 +436,131 @@ function showCategoryViaId(int $id):mixed{
     
     function updateCategory(int $id, string $name, string $description) :void {
     
-        $pdo = connexionBdd();
+        $cnx = connexionBdd();
         $sql = "UPDATE categories SET name = :name, description = :description WHERE id_category = :id";
-        $request = $pdo->prepare($sql);
+        $request = $cnx->prepare($sql);
         $request->execute(array(
             ':id' => $id,
             ':name' => $name,
             ':description' => $description
         ));
+    }
+ ////////////////////////  fonction pour insérer un film ///////////////////////////////
     
+    function addFilm(string $title, string $director, string $actors, string $ageLimit, int $category_id, string $duration, string $date, string $synopsis, string $image, float $price, int $stock) : void{
+        $cnx = connexionBdd();  
+        $sql = "INSERT INTO films (title, director, actors, ageLimit, category_id, duration, date, synopsis, image, price, stock)
+        VALUES (:title , :director, :actors, :ageLimit, :category_id, :duration, :date, :synopsis, :image, :price, :stock)";
+        $request = $cnx->prepare($sql);
+        $request->execute(array( 
+            
+                        ':title'=> $title,
+                        ':image' => $image,
+                        ':director' => $director,
+                        ':actors' => $actors,
+                        ':ageLimit' => $ageLimit,
+                        ':category_id' => $category_id,
+                        ':duration' => $duration,
+                        ':date'=> $date,                    
+                        ':price'=> $price,
+                        ':stock' => $stock,
+                        ':synopsis' => $synopsis,
+                    
+                    ));
+    }
+
+     ########## fonctions pour afficher un film #################################        
+
+     function showFilm(int $idFilm ):mixed{
+
+        $cnx = connexionBdd();
+        $sql = "SELECT * FROM films WHERE id_film = :id";
+        $request = $cnx->prepare($sql);
+        $request->execute(array(
+            ":id" =>  $idFilm
+        ));
+        $result = $request->fetch();
+        return $result;
+        }
+
+        /////////////// Une fonction pour supprimer un film //////////////////////////
     
+    function deleteFilm(int $idFilm ) :mixed{
+    
+        $cnx = connexionBdd();
+        $sql = "DELETE films WHERE id_film =:id";
+        $request = $cnx->prepare($sql);
+        $request->execute(array(
+            ':id' => $idFilm,          
+            
+        ));
+
+        }
+
+        /////////////// Une fonction pour modifier une catégorie //////////////////////////
+    
+    function updateFilm (int $idFilm, string $title, string $image, string $director, string $actors, string $ageLimit,int $category_id, string $duration, string $date, float $price, int $stock, string $synopsis  ) :mixed {
+    
+        $cnx = connexionBdd();
+        $sql = "UPDATE films SET id_film = :id,
+                                title = :title,
+                                image = :image,
+                                director = :director,
+                                actors = :actors,
+                                ageLimit = :ageLimit,
+                                category_id = :category_id,
+                                duration = :duration,
+                                date = :date,
+                                price = :price,
+                                stock = :stock,
+                                synopsis = :synopsis, WHERE id_film = :id";
+        $request = $cnx->prepare($sql);
+        $request->execute(array(
+                        ':id'       => $idFilm,
+                        ':title'    => $title,
+                        ':director' => $director,
+                        ':actors'   => $actors,
+                        ':ageLimit' => $ageLimit,
+                        ':category_id' => $category_id,
+                        ':duration' => $duration,
+                        ':date'     => $date,
+                        ':synopsis' => $synopsis,
+                        ':image'    => $image, // Attention, l'image ne doit pas venir de $_FILES
+                        ':price'    => $price,
+                        ':stock'    => $stock
+                        ));
+    
+    }
+     //------ Fonctions récupération id_category ------//
+     function idCategory(string $name) :array{
+        $cnx = connexionBdd();
+        $sql = "SELECT id_category FROM categories WHERE name = :name";
+        $request = $cnx->prepare($sql);
+        $request->execute(array(
+            ':name' => $name
+        ));
+        $result = $request->fetch(); //fetch pr recup une ligne bien determinee
+        return $result; // retourne un tableau avec une seule ligne
+    }
+
+  //------ Fonctions récupération films ayant la même catégorie  ------//
+    function filmByCategoryId(int $category) :array{
+        $cnx = connexionBdd();
+        $sql = "SELECT * FROM films WHERE category_id = (SELECT id_category FROM categories WHERE id_category = :id_category)";
+        $request = $cnx->prepare($sql);
+        $request->execute(array(
+            ':id_category' => $category
+        ));
+        $result = $request->fetchAll();
+        return $result;
+    }
+########## fonctions pour vérifier les films #################################
+
+function allFilms() :mixed{
+
+    $cnx = connexionBdd();
+    $sql = "SELECT * FROM filmss" ; 
+    $request= $cnx->query($sql);     
+    $result = $request->fetchAll(); 
+    return $result;
     }

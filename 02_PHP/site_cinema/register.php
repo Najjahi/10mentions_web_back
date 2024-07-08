@@ -162,7 +162,7 @@ require_once "inc/header.inc.php";
     <div class="w-75 m-auto p-5" style="background: rgba(20, 20, 20, 0.9);">
         <h2 class="text-center mb-5 p-3">Créer un compte</h2>
         <?php
-        debug($_POST);
+        //debug($_POST);
 
         echo $info;
 

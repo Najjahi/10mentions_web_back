@@ -10,7 +10,7 @@ if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_user'])) {
     if ($_GET['action'] == 'delete' && !empty($_GET['id_user'])) {
 
         $idUser = htmlentities($_GET['id_user']);
-        deleteUser($idUser);
+        // deleteUser($idUser);
         /*
     htmlentities :convertit tous les caractères applicables en entités HTML. Cela inclut non seulement les caractères spéciaux comme htmlspecialchars, mais aussi d'autres caractères qui ont des entités HTML (comme les caractères accentués) exemple.
 
@@ -38,11 +38,10 @@ if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_user'])) {
 // gestion de l'accessibilité des pages admin 
 if (empty($_SESSION['user'])) {
     header('location:'.RACINE_SITE.'authentification.php');
-} else {
-    if ($_SESSION['user']['role'] =='ROLE_USER') {
+} elseif ($_SESSION['user']['role'] =='ROLE_USER') {
         header('location:'.RACINE_SITE.'index.php');
     }
-}
+
 require_once "../inc/header.inc.php";
 ?>
 

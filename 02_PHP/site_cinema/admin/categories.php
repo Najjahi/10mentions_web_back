@@ -6,13 +6,11 @@ $info = "";
 if (empty($_SESSION['user'])) {
 
     header('location:' . RACINE_SITE . 'authentification.php');
-} else {
-
-    if ($_SESSION['user']['role'] == 'ROLE_USER') {
+} elseif ($_SESSION['user']['role'] == 'ROLE_USER') {
 
         header('location:' . RACINE_SITE . 'index.php');
     }
-}
+
 if (!empty($_POST)) { // si le formulaire est envoyé
     // On vérifie si un champ est vide
 
@@ -66,12 +64,7 @@ if (!empty($_POST)) { // si le formulaire est envoyé
                     addCategory($name, $description);
                 }
 
-
-
                 // header('location: categories.php');
-
-
-
             }
         }
     }
@@ -87,10 +80,7 @@ if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_category'])) {
         deleteCategory($idCategory);
     }
 
-
     // suppression et modification d'une categorie
-
-
 
     if ($_GET['action'] == 'update' && !empty($_GET['id_category'])) {
 

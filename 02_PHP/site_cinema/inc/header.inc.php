@@ -75,6 +75,7 @@
                                     <li><a class="dropdown-item text-dark fs-4" href="<?=RACINE_SITE?>admin/categories.php">Catégories</a></li>
                                     <li><a class="dropdown-item text-dark fs-4" href="<?=RACINE_SITE?>admin/films.php">Films</a></li>
                                     <li><a class="dropdown-item text-dark fs-4" href="<?=RACINE_SITE?>admin/users.php">utilisateurs</a></li>
+                                    <li><a class="dropdown-item text-dark fs-4" href="<?=RACINE_SITE?>admin/gestion_film.php">Gestion des films</a></li>
                                 </ul>
 
                              </li>
