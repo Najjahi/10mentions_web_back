@@ -447,7 +447,7 @@ function deleteUser(int $id_user):void {
     }
  ////////////////////////  fonction pour insérer un film ///////////////////////////////
     
-    function addFilm(string $title, string $director, string $actors, string $ageLimit, int $category_id, string $duration, string $date, string $synopsis, string $image, float $price, int $stock) : void{
+    function addFilms(string $title, string $director, string $actors, string $ageLimit, int $category_id, string $duration, string $date, string $synopsis, string $image, float $price, int $stock) : void{
         $cnx = connexionBdd();  
         $sql = "INSERT INTO films (title, director, actors, ageLimit, category_id, duration, date, synopsis, image, price, stock)
         VALUES (:title , :director, :actors, :ageLimit, :category_id, :duration, :date, :synopsis, :image, :price, :stock)";
@@ -471,66 +471,46 @@ function deleteUser(int $id_user):void {
 
      ########## fonctions pour afficher un film #################################        
 
-     function showFilm(int $idFilm ):mixed{
+     function showFilms():mixed{
 
         $cnx = connexionBdd();
-        $sql = "SELECT * FROM films WHERE id_film = :id";
+        $sql = "SELECT * FROM films" ;
         $request = $cnx->prepare($sql);
-        $request->execute(array(
-            ":id" =>  $idFilm
-        ));
-        $result = $request->fetch();
+        $result = $request->fetchAll();
         return $result;
         }
 
-        /////////////// Une fonction pour supprimer un film //////////////////////////
+        /////////////// Une fonction pour modifier un film //////////////////////////
     
-    function deleteFilm(int $idFilm ) :mixed{
+    function updateFilm (int $idFilm, string $title) :mixed {
+    
+        $cnx = connexionBdd();
+        $sql = "UPDATE films SET id_film = :id,
+                                title = :title,
+                                
+                                WHERE id_film = :id";
+        $request = $cnx->prepare($sql);
+        $request->execute(array(
+                        ':id'       => $idFilm,
+                        ':title'    => $title,
+                        
+                        ));
+    
+    }
+    /////////////// Une fonction pour supprimer un film //////////////////////////
+    
+    function deleteFilm(int $idFilm, string $title ) :mixed{
     
         $cnx = connexionBdd();
         $sql = "DELETE films WHERE id_film =:id";
         $request = $cnx->prepare($sql);
         $request->execute(array(
-            ':id' => $idFilm,          
+            ':id' => $idFilm, 
+            ':title'    => $title,         
             
         ));
 
         }
-
-        /////////////// Une fonction pour modifier une catégorie //////////////////////////
-    
-    function updateFilm (int $idFilm, string $title, string $image, string $director, string $actors, string $ageLimit,int $category_id, string $duration, string $date, float $price, int $stock, string $synopsis  ) :mixed {
-    
-        $cnx = connexionBdd();
-        $sql = "UPDATE films SET id_film = :id,
-                                title = :title,
-                                image = :image,
-                                director = :director,
-                                actors = :actors,
-                                ageLimit = :ageLimit,
-                                category_id = :category_id,
-                                duration = :duration,
-                                date = :date,
-                                price = :price,
-                                stock = :stock,
-                                synopsis = :synopsis, WHERE id_film = :id";
-        $request = $cnx->prepare($sql);
-        $request->execute(array(
-                        ':id'       => $idFilm,
-                        ':title'    => $title,
-                        ':director' => $director,
-                        ':actors'   => $actors,
-                        ':ageLimit' => $ageLimit,
-                        ':category_id' => $category_id,
-                        ':duration' => $duration,
-                        ':date'     => $date,
-                        ':synopsis' => $synopsis,
-                        ':image'    => $image, // Attention, l'image ne doit pas venir de $_FILES
-                        ':price'    => $price,
-                        ':stock'    => $stock
-                        ));
-    
-    }
      //------ Fonctions récupération id_category ------//
      function idCategory(string $name) :array{
         $cnx = connexionBdd();
@@ -559,7 +539,7 @@ function deleteUser(int $id_user):void {
 function allFilms() :mixed{
 
     $cnx = connexionBdd();
-    $sql = "SELECT * FROM filmss" ; 
+    $sql = "SELECT * FROM films" ; 
     $request= $cnx->query($sql);     
     $result = $request->fetchAll(); 
     return $result;
