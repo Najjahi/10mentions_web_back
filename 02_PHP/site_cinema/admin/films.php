@@ -1,70 +1,114 @@
 <?php
+
 require_once "../inc/functions.inc.php";
 
-// fichier qui affiche tout les films
-// gestion de l'accessibilité des pages admin 
-if (empty($_SESSION['user'])) {
-    header('location:'.RACINE_SITE.'authentification.php');
-} else {
-    if ($_SESSION['user']['role'] =='ROLE_USER') {
-        header('location:'.RACINE_SITE.'index.php');
-    }
+if(empty($_SESSION['user']) ) {
+
+    header("location:".RACINE_SITE."authentification.php");
+
+}else{
+
+if ( $_SESSION['user']['role'] == 'ROLE_USER') {
+
+    header("location:".RACINE_SITE."index.php");
 }
+
+}
+    $films = allFilms();
+
 require_once "../inc/header.inc.php";
 ?>
 
-   
+<div class="d-flex flex-column m-auto mt-5">
 
-    <div class="col-sm-12 col-md-12 d-flex flex-column mt-5 pe-3">
-        <!-- tableau pour afficher toute les catégories avec des boutons de suppression et de modification -->
-        <h2 class="text-center fw-bolder mb-5 text-danger">Liste des films</h2>
-        <?php
-        $films = allfilms();
-        //debug($categories);
-
-        ?>
-
-
-        <table class="table table-dark table-bordered mt-5 ">
-            <thead>
-                <tr>
+    <h2 class="text-center fw-bolder mb-5 text-danger">Liste des films</h2>
+    <a href="gestionFilms.php" class="btn align-self-end"> Ajouter un film</a>
+    <table class="table table-dark table-bordered mt-5 " >
+            <thea>
+                    <tr >
                     <!-- th*7 -->
-                    <th>ID</th>
-                    <th>Titre</th>
-                    <th>Réalisateur</th>
-                    <th>Supprimer</th>
-                    <th>Modifier</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                foreach ($films as $key => $film) {
-
-                ?>
-
-                    <tr>
-                        <td><?= $film['id_film'] ?></td>
-                        <td><?= html_entity_decode(ucfirst($film['title'])) ?></td> <!-- une majuscule sur la première lettre avec ucfirst()-->
-                        <td><?= substr(html_entity_decode($film['director']), 0, 100) . '...' ?></td> <!-- html_entity_decode convertit les netités HTML à leurs caractéres correspendants-->
-                        <td class="text-center"><a href="?action=delete&id_film=<?= $film['id_film'] ?>"><i class="bi bi-trash3-fill"></i></a></td>
-                        <td class="text-center"><a href="?action=update&id_film=<?= $film['id_film'] ?>"><i class="bi bi-pen-fill"></i></a></td>
-
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Affiche</th>
+                        <th>Réalisateur</th>
+                        <th>Acteurs</th>
+                        <th>Àge limite</th>
+                        <th>Genre</th>
+                        <th>Durée</th>
+                        <th>Prix</th>
+                        <th>Stock</th>
+                        <th>Synopsis</th>
+                        <th>Date de sortie</th>
+                        <th>Supprimer</th>
+                        <th>Modifier</th>
                     </tr>
-                    <?php
+            </thea>
+            <tbody>
 
+                <?php
+
+                foreach($films as $key => $film){
+                    //Avant l'affichage des données il fautr formater quelques une:
+
+
+                   $actors= stringToArray($film['actors']); // je transforme la chaîne de caratcétre récupérée à partir de l'élément $film['actors'] du tableau $film en un tableau avec la fonction stringToArray()
+
+                    // la catégorie du film
+                   $category = showCategoryViaId($film['category_id']);
+                   $categoryName = $category['name'];
+
+                   //Gérer l'affichage de la durée
+                        // $objet = new NomDeLaClasse();
+                        $date_time = new DateTime($film['duration']); // nous créeons un nouvel objet DateTime en passant  la valeur de l'input de type time  en tant que paramètre
+                        $duration = $date_time->format('H:i');// Nous utilisons ensuite la méthode format() pour extriare l'heure et les minutes au format 'H:i'
+
+                        ?>
+                        <tr>
+
+                            <!-- Je récupére les valeus de mon tabelau $film dans des td -->
+                            <td><?= $film['id_film'] ?></td>
+                            <td> <?= $film['title'] ?></td>
+                            <td> <img src="<?=RACINE_SITE."assets/img/". $film['image'] ?>" alt="affiche du film" class="img-fluid"></td>
+                            <td> <?= $film['director'] ?></td>
+                            <td>
+                                <ul>
+                                <?php
+                                foreach($actors as $key => $actor){
+                                    ?>
+                                    <li><?= $actor;?></li>
+                                    <?php
+                                }
+                                ?>
+                                </ul>
+                            </td>
+                            <td> <?= $film['ageLimit'] ?></td>
+                            <td> <?= $categoryName ?></td>
+                            <td> <?= $duration?></td>
+                            <td> <?= $film['price'] ?>€</td>
+                            <td> <?= $film['stock'] ?></td>
+                            <td> <?=substr($film['synopsis'],0, 50) ?>...</td>
+                            <td> <?= $film['date'] ?></td>
+                            <td class="text-center"><a href="gestion_film.php?action=delete&id_film=<?= $film['id_film'] ?>"><i class="bi bi-trash3-fill"></i></a></td>
+                            <td class="text-center"><a href="gestion_film.php?action=update&id_film=<?= $film['id_film'] ?>"><i class="bi bi-pen-fill"></i></a></td>
+
+                        </tr>
+
+                    <?php
                 }
 
                 ?>
-                </table>
-                </div>
-               
-            
-          
-            
-               
+<?php 
 
+
+
+?>
+
+            </tbody>
+
+    </table>
+
+</div>
 <?php
 
-require_once "../inc/footer.inc.php";
-
+     require_once "../inc/footer.inc.php";
 ?>

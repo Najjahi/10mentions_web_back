@@ -2,163 +2,163 @@
 require_once "../inc/functions.inc.php";
 
 // gestion de l'accessibilité des pages admin
-
 if (empty($_SESSION['user'])) {
 
-    header('location:'.RACINE_SITE.'authentification.php');
-
+    header('location:' . RACINE_SITE . 'authentification.php');
 } else {
 
-    if ($_SESSION['user']['role']== 'ROLE_USER') {
+    if ($_SESSION['user']['role'] == 'ROLE_USER') {
 
-        header('location:'.RACINE_SITE.'index.php');
+        header('location:' . RACINE_SITE . 'index.php');
     }
 }
+
 
 
 $info = "";
 
 
-////////////////// Validation du formulaire //////////////////
-
-// On vérifie si un champs est vide
+//  Validation du formulaire
 
 if (!empty($_POST)) {
-    
-    $verif=true;
-   
+
+
+    // On vérifie si un champ est vide
+    $verif = true;
     foreach ($_POST as $key => $value) { // une boucle pour vérifier si un champ est vide
-      
+
         if (empty(trim($value))) {
 
             $verif = false;
         }
     }
-    
+
     // la superglobale $_FILES a un indice "image" qui correspond au "name" de l'input type="file" du formulaire, ainsi qu'un indice "name" qui contient le nom du fichier en cours de téléchargement.
-   
-    // Vérifie si le champ 'image' du tableau $_FILES n'est pas vide, ce qui signifie qu'un fichier est en cours de téléchargement.
-   
+
+        // Vérifie si le champ 'image' du tableau $_FILES n'est pas vide, ce qui signifie qu'un fichier est en cours de téléchargement.
     if (!empty($_FILES['image']['name'])) {  // $_FILES['image']['name'] contient le nom original du fichier téléchargé.
 
         // Définit la variable $image avec le nom du fichier téléchargé.
         // Cela crée le chemin relatif vers l'image qui sera utilisé pour stocker l'image et peut être utilisé dans les balises <img>.
-        
         $image =  $_FILES['image']['name'];
-        
+
         // Utilise la fonction copy() pour copier le fichier temporaire téléchargé (stocké à l'adresse contenue dans $_FILES['image']['tmp_name'])
         // vers un emplacement permanent. Le fichier est déplacé dans le dossier "../assets/img/" avec le nom original du fichier.
 
         // copy() prend deux arguments : le chemin source (le fichier temporaire) et le chemin de destination.
-       
+
         copy($_FILES['image']['tmp_name'], '../assets/img/' . $image); // $_FILES['image']['tmp_name'] contient le chemin temporaire où le fichier est stocké après le téléchargement.
     }
-    
-    if($verif == false || empty($image)){  // si la variable $verif passe en false ou la variable image est vide 
-       
-        $info = alert("Veuillez renseigner tout les champs", "danger");
-   
-    } else {
 
-        // on vérifie l'image : 
+    if ($verif == false || empty($image)) {// si la variable $verif passe en false ou la variable $image est vide
+
+        $info = alert("Veuillez renseigner tous les champs", "danger"); // j'affiche un message d'erreur
+
+    }else{
+
+          // on vérifie l'image :
             // $_FILES['image']['name'] Nom
             // $_FILES ['image']['type'] Type
             // $_FILES ['image']['size'] Taille
             // $_FILES ['image']['tmp_name'] Emplacement temporaire
             // $_FILES ['image']['error'] Erreur si oui/non l'image a été réceptionné
 
-            // debug($_FILES['image']['name']);
-            // debug($_FILES['image']['type']);
-            // debug($_FILES['image']['size']);
-            // debug($_FILES['image']['tmp_name']);
-            // debug($_FILES['image']['error']);
+
+            // debug($_FILES['image']['name'] );
+            // debug($_FILES['image']['type'] );
+
+            // debug($_FILES['image']['size'] );
+
+            // debug($_FILES['image']['tmp_name'] );
+
+            // debug($_FILES['image']['error'] );
+
 
         if($_FILES['image']['error'] != 0 || $_FILES['image']['size'] == 0 || !isset($_FILES['image']['type'])){
 
             $info .= alert("L'image n'est pas valide","danger");
 
-        }        
-        
+        }
+
+
         $titleFilm = trim($_POST['title']);
         $director = trim($_POST['director']);
         $actors = trim($_POST['actors']);
-        $genre = trim($_POST['categories']);
+        $genre = $_POST['categories'];
         $duration = trim($_POST['duration']);
-        $synopsis = trim($_POST['synopsis']);       
+        $synopsis = trim($_POST['synopsis']);
         $dateSortie = trim($_POST['date']);
         $price = trim($_POST['price']);
         $stock = trim($_POST['stock']);
         $ageLimit = trim($_POST['ageLimit']);
 
-        debug($price);
-        debug($stock);
-        //die();
-
-        // validation
-        $regex_chiffre ='/0-9]/';
+        $regex_chiffre = '/[0-9]/';
         $regex_acteurs = '/.*\/.*/';
 
-        //Explications: 
-        //    .* : correspond à n'importe quel nombre de caractères (y compris zéro caractère), sauf une nouvelle ligne.
-        //     \/ : correspond au caractère /. Le caractère / doit être précédé d'un backslash \ car il est un caractère spécial en expression régulière. Le backslash est appelé caractère d'échappement et il permet de spécifier que le caractère qui suit doit être considéré comme un caractère ordinaire.
-        //     .* : correspond à n'importe quel nombre de caractères (y compris zéro caractère), sauf une nouvelle ligne.
+        //Explications:
+            //    .* : correspond à n'importe quel nombre de caractères (y compris zéro caractère), sauf une nouvelle ligne.
+            //     \/ : correspond au caractère /. Le caractère / doit être précédé d'un backslash \ car il est un caractère spécial en expression régulière. Le backslash est appelé caractère d'échappement et il permet de spécifier que le caractère qui suit doit être considéré comme un caractère ordinaire.
+            //     .* : correspond à n'importe quel nombre de caractères (y compris zéro caractère), sauf une nouvelle ligne.
+
 
         if (!isset($titleFilm) || strlen($titleFilm) < 2 ) {
-            $info .= alert("le champs titre n'est pas valide", "danger");
+            $info .= alert("le champ titre n'est pas valide ", "danger");
         }
 
-        if (!isset($director) || strlen($director) <2 || preg_match($regex_chiffre, $director)  ) {
-            $info .= alert("le champs réalisateur n'est pas valide", "danger");
-        }           
+        if (!isset($director) || strlen($director) < 2  || preg_match($regex_chiffre, $director) ) {
 
-        if( !isset($actors) || strlen($actors) < 3 || preg_match($regex_chiffre, $actors) || !preg_match($regex_acteurs, $actors) ){ // valider que l'utilisateur a bien inséré le symbole '/' : chaîne de caractères qui contient au moins un caractère avant et après le symbole /.
-            
-            $info .= alert("Le champs acteurs n'est pas valide, il faut séparer les acteurs avec le symbole","danger");
-        }
-        
-        if (!isset($genre) || showCategoryViaId($genre) == false) {
-            $info .= alert("Le la catégorie n'est pas correcte","danger");   
-        }
-       
-        if (!isset($duration)) {
-            $info .= alert("la durée n'est pas valide", "danger");
-        }
-       
-        if (!isset($dateSortie)) {
-            $info .= alert("la date de sortie n'est pas valide", "danger");
-        }
-              
-        if (!isset($price) || !is_numeric($price)) {
-            $info .= alert("le prix n'est pas valide", "danger");
+            $info .= alert("Le champ Réalisateur n'est pas valide", "danger");
         }
 
-        if (!isset($synopsis) || strlen($synopsis) < 50) {
-            $info .= alert("le champs nom de la catégorie n'est pas valide", "danger");
+        if(!isset($actors) ||  strlen($actors) < 3 || preg_match($regex_chiffre, $actors) || !preg_match($regex_acteurs, $actors) ){ // valider que l'utilisateur a bien inséré le symbole '/' : chaîne de caractères qui contient au moins un caractère avant et après le symbole /.
+
+            $info .= alert("Le champ acteurs n'est pas valide, il faut séparer les acteurs avec le symbole","danger");
+
+        }
+        if (!isset($genre) ||  showCategoryViaId($genre) == false ){
+
+            $info .= alert("la catégorie n'est pas correcte","danger");
+
+        }
+        if (!isset($duration) ) {
+
+            $info .= alert("La durée n'est pas valide", "danger");
         }
 
-        if (!isset($stock)) {
-            $info .= alert("le résumé doit dépasser 50 caractére", "danger");
-        }
-                
-        if (!isset($image)) {
-            $info .= alert("le champs image n'est pas valide", "danger");
-        }
-        if (!isset($ageLimit)) {
-            $info .= alert("le champs nom de la catégorie n'est pas valide", "danger");
-        } elseif (empty($info)) {
+        if (!isset($dateSortie) ) {
 
-            $genre;
-            $price;
-            $stock;
-            debug($genre);
-            debug($price);
-            debug($stock);
-            $info .= alert("it's ok", "success");
-            addFilms($titleFilm, $director, $actors, $ageLimit, $genre, $duration, $dateSortie, $synopsis, $image, $price, $stock);
+            $info .= alert("La date n'est pas valide", "danger");
+        }
+
+        if (!isset($price) || !is_numeric($price) ) {
+
+            $info .= alert("Le prix n'est pas valide", "danger");
+        }
+
+        if (!isset($synopsis) ||  strlen($synopsis) < 50  ){
+
+            $info .= alert("Il faut que le résumé dépasse 50 caractéres","danger");
+
+        }else if(empty($info)){
+
+            if (verifFilm($titleFilm, $dateSortie)) { // si le film existe dans la base de données j'affiche messege d'erreur
+               $info = alert("Le film existe déjà", "danger");
+            } else {  // si le film n'existe pas dans la base de données je l'insére
+
+                addFilms( $titleFilm,  $director,  $actors,  $ageLimit,  $duration,  $synopsis,  $dateSortie,  $price,  $stock,  $image,  $genre);
+
+                header('location:film.php');
+            }
+
         }
 
     }
+
+
 }
+
+
+
 
 require_once "../inc/header.inc.php";
 ?>
@@ -169,45 +169,45 @@ require_once "../inc/header.inc.php";
     <?php
     echo $info;
     ?>
-<form action="" method="post" class="back" enctype="multipart/form-data">
-    <!-- il faut isérer une image pour chaque film, pour le traitement des images et des fichiers en PHP on utilise la surperglobal $_FILES -->
-    <div class="row">
-        <div class="col-md-6 mb-5">
-            <label for="title">Titre de film</label>
-            <input type="text" name="title" id="title" class="form-control" value="">
+    <form action="" method="post" class="back" enctype="multipart/form-data">
+        <!-- il faut isérer une image pour chaque film, pour le traitement des images et des fichiers en PHP on utilise la surperglobal $_FILES -->
+        <div class="row">
+            <div class="col-md-6 mb-5">
+                <label for="title">Titre de film</label>
+                <input type="text" name="title" id="title" class="form-control" value="">
 
+            </div>
+            <div class="col-md-6 mb-5">
+                <label for="image">Photo</label>
+                <br>
+                <input type="file" name="image" id="image">
+            </div>
         </div>
-        <div class="col-md-6 mb-5">
-            <label for="image">Photo</label>
-            <br>
-            <input type="file" name="image" id="image" >
+        <div class="row">
+            <div class="col-md-6 mb-5">
+                <label for="director">Réalisateur</label>
+                <input type="text" class="form-control" id="director" name="director" value="">
+            </div>
+            <div class="col-md-6">
+                <label for="actors">Acteur(s)</label>
+                <input type="text" class="form-control" id="actors" name="actors" value="" placeholder="séparez les noms d'acteurs avec un /">
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-5">
-            <label for="director">Réalisateur</label>
-            <input type="text" class="form-control" id="director" name="director" value="" >
+        <div class="row">
+            <!-- raccouci bs5 select multiple -->
+            <div class="mb-3">
+                <label for="ageLimit" class="form-label">Àge limite</label>
+                <select multiple class="form-select form-select-lg" name="ageLimit" id="ageLimit">
+                    <option value="10">10</option>
+                    <option value="13">13</option>
+                    <option value="16">16</option>
+                </select>
+            </div>
         </div>
-        <div class="col-md-6">
-            <label for="actors">Acteur(s)</label>
-            <input type="text" class="form-control" id="actors" name="actors" value=""  placeholder="séparez les noms d'acteurs avec un /">
-        </div>
-    </div>
-    <div class="row">
-        <!-- raccouci bs5 select multiple -->
-        <div class="mb-3">
-            <label for="ageLimit" class="form-label">Àge limite</label>
-            <select multiple class="form-select form-select-lg" name="ageLimit" id="ageLimit">
-                <option value="10">10</option>
-                <option value="13">13</option>
-                <option value="16">16</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <label for="categories">Genre du film</label>
+        <div class="row">
+            <label for="categories">Genre du film</label>
 
-        <!--  Ici c'est les catégories qui sont déjà stockés dans la BDD et qu'on vas les récupérer à partir de cette dernière -->
+            <!--  Ici c'est les catégories qui sont déjà stockés dans la BDD et qu'on vas les récupérer à partir de cette dernière -->
             <?php
             $categories = allCategories();
 
@@ -215,39 +215,41 @@ require_once "../inc/header.inc.php";
 
             ?>
 
-            <div class="form-check col-sm-12 col-md-4">
-                <input class="form-check-input" type="radio" name="categories" id="flexRadioDefault1" value="<?=html_entity_decode($categorie["id_category"]) ?>"  >
-                <label class="form-check-label" for="<?=html_entity_decode($categorie["name"])?>"><?=ucfirst(html_entity_decode($categorie["name"]))?></label>
-            </div>
+                <div class="form-check col-sm-12 col-md-4">
+                    <input class="form-check-input" type="radio" name="categories" id="<?=html_entity_decode($categorie["name"])?>" value="<?=$categorie["id_category"]?>">
+
+                    <label class="form-check-label" for="<?=html_entity_decode($categorie["name"])?>"><?=ucfirst(html_entity_decode($categorie["name"]))?></label>
+                </div>
 
             <?php
             }
             ?>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mb-5">
-            <label for="duration">Durée du film</label>
-            <input type="time" class="form-control" id="duration" name="duration" min="0" value="" >
-        </div>
 
-        <div class="col-md-6 mb-5">
-
-            <label for="date">Date de sortie</label>
-            <input type="date" name="date" id="date" class="form-control" value="" >
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-6 mb-5">
+                <label for="duration">Durée du film</label>
+                <input type="time" class="form-control" id="duration" name="duration"  min="01:00" value="">
+            </div>
+
+            <div class="col-md-6 mb-5">
+
+                <label for="date">Date de sortie</label>
+                <input type="date" name="date" id="date" class="form-control" value="">
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6 mb-5">
                 <label for="price">Prix</label>
                 <div class=" input-group">
-                    <input type="text" class="form-control" id="price" name="price"  aria-label="Euros amount (with dot and two decimal places)" value="">
+                    <input type="text" class="form-control" id="price" name="price" aria-label="Euros amount (with dot and two decimal places)" value="">
                     <span class="input-group-text">€</span>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <label for="stock">Stock</label>
-                <input type="number" name="stock" id="stock" class="form-control" min ="0"  value=""> <!--pas de stock négativ donc je rajoute min="0"-->
+                <input type="number" name="stock" id="stock" class="form-control" min="0" value=""> <!--pas de stock négativ donc je rajoute min="0"-->
             </div>
         </div>
         <div class="row">
@@ -260,11 +262,20 @@ require_once "../inc/header.inc.php";
         <div class="row justify-content-center">
             <button type="submit" class="btn btn-danger p-3 w-25">Ajouter un film</button>
         </div>
-        
-</form>
+
+    </form>
 
 </main>
 <?php
 
-     require_once "../inc/footer.inc.php";
+require_once "../inc/footer.inc.php";
+?>
+
+
+
+<?php
+
+
+require_once "../inc/footer.inc.php"
+
 ?>
