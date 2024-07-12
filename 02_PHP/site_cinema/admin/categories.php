@@ -71,15 +71,29 @@ if (!empty($_POST)) { // si le formulaire est envoyé
 }
 // suppression et modification d'une categorie
 
-if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_category'])) {
+if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_category']) && !empty($_GET['action']) && !empty($_GET['id_category'] )) {
 
+        
     $idCategory = htmlentities($_GET['id_category']);
 
-    if ($_GET['action'] == 'delete' && !empty($_GET['id_category'])) {
+    if(is_numeric($idcategory)) { 
 
-        deleteCategory($idCategory);
-    }
+        $category  = showCategoryViaId($idCategory);
+        if($category) {
 
+            if($_GET['action'] == 'update') {
+
+            }
+            if ($_GET['action'] !== 'delete') {
+                
+                header('location:categories.php');
+            }
+        
+     } else{
+       header('location:categories.php');
+     }
+   
+}
     // suppression et modification d'une categorie
 
     if ($_GET['action'] == 'update' && !empty($_GET['id_category'])) {
@@ -91,9 +105,10 @@ if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_category'])) {
         //die();
 
     }
+}
     // header('location:categories.php');
 
-}
+
 
 require_once "../inc/header.inc.php";
 ?>
@@ -117,6 +132,7 @@ require_once "../inc/header.inc.php";
                 <div class="col-md-12 mb-5">
                     <label for="description">Description</label>
                     <textarea id="description" name="description" class="form-control" rows="10"><?= isset($category) ? $category['description'] : '' ?></textarea>
+                    <!--condition ternaire  a l'interieur de textarea-->
                 </div>
 
             </div>

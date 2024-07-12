@@ -3,10 +3,14 @@
 
 require_once "inc/functions.inc.php";
 
+// si l'utisateur est connecté je l'empêche d'aller sur la page authentification et je le redirige vers la page profil
+
+if(!empty($_SESSION['user'])) {
+
+    header('location:profil.php');
+}
 
 $info = "";
-
-
 
 if (!empty($_POST)) {
 
