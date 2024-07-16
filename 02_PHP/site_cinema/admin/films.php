@@ -16,7 +16,7 @@ if(empty($_SESSION['user']) ) {
 }
 //supprimer un film
 
-if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_category']) && !empty($_GET['action']) && !empty($_GET['id_film'] )) {
+if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_film']) && !empty($_GET['action']) && !empty($_GET['id_film'] )) {
 
         
     $idfilm= htmlentities($_GET['id_film']);
@@ -26,9 +26,7 @@ if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_category']) && !em
         $film  = showFilmViaId($idfilm);
         if($film) {
 
-            deleteFilm($idfilm);
-
-          
+            deleteFilm($idfilm);          
                 
                 header('location:films.php');
             }
@@ -46,7 +44,7 @@ require_once "../inc/header.inc.php";
 <div class="d-flex flex-column m-auto mt-5">
 
     <h2 class="text-center fw-bolder mb-5 text-danger">Liste des films</h2>
-    <a href="gestionFilms.php" class="btn align-self-end"> Ajouter un film</a>
+    <a href="gestion_film.php" class="btn align-self-end"> Ajouter un film</a>
     <table class="table table-dark table-bordered mt-5 " >
             <thea>
                     <tr >
@@ -104,7 +102,7 @@ require_once "../inc/header.inc.php";
                         ?>
                         </ul>
                     </td>
-                    <td> <?= $film['ageLimit'] ?></td>
+                    <td> <?= $film['age_Limit'] ?></td>
                     <td> <?= $categoryName ?></td>
                     <td> <?= $duration?></td>
                     <td> <?= $film['price'] ?>€</td>

@@ -504,7 +504,7 @@ function updateCategory(int $id, string $name, string $description) :void {
 
 ///////////////////////////////////////////  fonction pour insérer un film //////////////////////////////////////////
 
-function addFilms(string $title, string $director, string $actors, string $ageLimit, string $duration, string $synopsis, string $date, float $price, int $stock, string $image, int $id_category ) {
+function addFilms(string $title, string $director, string $actors, string $age_Limit, string $duration, string $synopsis, string $date, float $price, int $stock, string $image, int $id_category ) {
 
     $cnx = connexionBdd();
 
@@ -512,7 +512,7 @@ function addFilms(string $title, string $director, string $actors, string $ageLi
         'title' => $title,
         'director' => $director,
         'actors' => $actors,
-        'ageLimit' => $ageLimit,
+        'age_Limit' => $age_Limit,
         'duration' => $duration,
         'synopsis' => $synopsis,
         'date' => $date,
@@ -530,13 +530,13 @@ function addFilms(string $title, string $director, string $actors, string $ageLi
 
     }
 
-    $sql= "INSERT INTO films (title,  director,  actors,  ageLimit,  duration,  synopsis,  date,  price, stock,  image, category_id) VALUES (:title,  :director,  :actors,  :ageLimit,  :duration,  :synopsis,  :date,  :price, :stock,  :image, :category_id)"; // requête d'insertion que je stock dans une variable
+    $sql= "INSERT INTO films (title,  director,  actors,  age_Limit,  duration,  synopsis,  date,  price, stock, image, category_id) VALUES (:title,  :director,  :actors,  :age_Limit,  :duration,  :synopsis,  :date,  :price, :stock,  :image, :category_id)"; // requête d'insertion que je stock dans une variable
     $request = $cnx->prepare($sql); // je prépare ma fonction et je l'exécute
     $request->execute(array(
        ':title' => $data['title'],
        ':director' => $data['director'],
        ':actors' => $data['actors'],
-       ':ageLimit' => $data['ageLimit'],
+       ':age_Limit' => $data['age_Limit'],
        ':duration' => $data['duration'],
        ':synopsis' => $data['synopsis'],
        ':date' => $data['date'],
@@ -595,7 +595,7 @@ function showFilmViaId(int $id){
 ////////////////////////// Une fonction pour modifier un film //////////////////////////////////////////////
 
    
-function updateFilm(string $title, string $director, string $actors, string $ageLimit, string $duration, string $synopsis, string $date, float $price, int $stock, string $image, int $id_category, int $id_film ) : void {
+function updateFilms(string $title, string $director, string $actors, string $age_Limit, string $duration, string $synopsis, string $date, float $price, int $stock, string $image, int $id_category, int $id_film ) : void {
 
     $cnx = connexionBdd();
 
@@ -603,7 +603,7 @@ function updateFilm(string $title, string $director, string $actors, string $age
         'title' => $title,
         'director' => $director,
         'actors' => $actors,
-        'ageLimit' => $ageLimit,
+        'age_Limit' => $age_Limit,
         'duration' => $duration,
         'synopsis' => $synopsis,
         'date' => $date,
@@ -611,33 +611,34 @@ function updateFilm(string $title, string $director, string $actors, string $age
         'stock' => $stock,
         'image'=> $image,
         'category_id' => $id_category,
-        ':id_film => $id_film'
-
+        'id_film' => $id_film
+        
     ];
 
-    // echapper les données et les traiter contre les failles JS (XSS)
+    // echapper les données et les traiter contre les failles JS (XSS) 
     foreach ($data as $key => $value) {
 
         $data[$key] = htmlentities($value);
-
+          
     }
 
-    $sql= "UPDATE films SET (title = :title,  director= :director,  actors = : actors,  ageLimit = : ageLimit,  duration = :duration,  synopsis =: synopsis,  date=:date,  price=:price, stock= : stock,  image =:image, category_id =:category_id) VALUES (:title,  :director,  :actors,  :ageLimit,  :duration,  :synopsis,  :date,  :price, :stock,  :image, :category_id :genre WHERE id_film=:id_film)"; // requête d'insertion que je stock dans une variable
+    $sql= "UPDATE films SET title = :title,  director = :director,  actors = :actors,  age_Limit = :age_Limit,  duration = :duration,  synopsis = :synopsis,  date = :date,  price = :price, stock = :stock ,  image =  :image, category_id = :category_id WHERE id_film = :id_film"; // requête d'insertion que je stock dans une variable
+
     $request = $cnx->prepare($sql); // je prépare ma fonction et je l'exécute
     $request->execute(array(
        ':title' => $data['title'],
        ':director' => $data['director'],
        ':actors' => $data['actors'],
-       ':ageLimit' => $data['ageLimit'],
+       ':age_Limit' => $data['age_Limit'],
        ':duration' => $data['duration'],
        ':synopsis' => $data['synopsis'],
        ':date' => $data['date'],
        ':price' => $data['price'],
        ':stock' => $data['stock'],
        ':image' => $data['image'],
-       ':category_id'=>$data['id_category'],
-       ':id_film' => $data['$id_film']
-
+       ':category_id'=>$data['category_id'],
+       ':id_film'=>$data['id_film']
+            
     ));
 
 }
@@ -647,14 +648,40 @@ function updateFilm(string $title, string $director, string $actors, string $age
 function deleteFilm(int $id) :void {
 
     $cnx= connexionBdd();
-    $sql = "DELETE * FROM films WHERE id_film = :id ";
+    $sql = "DELETE FROM films WHERE id_film = :id_film ";
     $request = $cnx->prepare($sql);
     $request->execute(array(
-        ':id' => $id
+        ':id_film' => $id
     ));
     
 }
 
+//////////////////////// Une fonction pour afficher les 6 derniers films /////////////////////
+
+function filmByDate() :mixed {
+
+    $cnx= connexionBdd();
+    $sql = "SELECT * FROM films ORDER BY date DESC LIMIT 6";
+    $request = $cnx->query($sql); // querry parcequ on n'a pas de parametre définis
+    $result = $request->fetchAll();
+    return $result;
+        
+    
+}
+//////////////////////// Une fonction pour afficher les 6 derniers films /////////////////////
+function filmsByCategory($id) :mixed {
+
+    $cnx= connexionBdd();
+    $sql = "SELECT * FROM films WHERE category_id = :id";
+    $request = $cnx->prepare($sql); // querry parcequ on n'a pas de parametre définis
+    $request ->execute(array(
+        ':id' => $id
+    )); 
+    $result = $request->fetchAll();
+    return $result;
+        
+    
+}
 
 
 ?>

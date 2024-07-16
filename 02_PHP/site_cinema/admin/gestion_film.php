@@ -27,23 +27,22 @@ if (isset($_GET) && isset($_GET['action']) && isset($_GET['id_film']) && !empty(
 
         if ($film) {
 
-            if ($_GET['action'] == 'update') {
+            if ($_GET['action'] == 'delete') {
 
                 //deleteCategory($idfilm);
-
             }
         } else {
             header('location:films.php');
         }
     }
-    // suppression et modification d'une categorie
+    // suppression et modification d'un film
 
-    if ($_GET['action'] == 'update' && !empty($_GET['id_category'])) {
+    if ($_GET['action'] == 'update' && !empty($_GET['id_film'])) {
 
 
-        $category = showCategoryViaId($idCategory);
+        $film = showFilmViaId($idfilm);
 
-        debug($category);
+        debug($idfilm);
         //die();
 
     }
@@ -125,7 +124,6 @@ if (!empty($_POST)) {
         $price = trim($_POST['price']);
         $stock = trim($_POST['stock']);
         $ageLimit = trim($_POST['ageLimit']);
-
         $regex_chiffre = '/[0-9]/';
         $regex_acteurs = '/.*\/.*/';
 
@@ -177,7 +175,7 @@ if (!empty($_POST)) {
 
                 $idfilm = htmlentities($_GET['id_film']);
 
-                updateFilm($titleFilm, $director, $actors, $ageLimit, $duration, $synopsis, $dateSortie, $price, $stock, $image, $genre, $idfilm);
+                updateFilms($titleFilm, $director, $actors, $ageLimit, $duration, $synopsis, $dateSortie, $price, $stock, $image, $genre, $idfilm);
 
             } else {
 
@@ -189,7 +187,7 @@ if (!empty($_POST)) {
 
                     //je l'insére dans la BDD
 
-                    addFilms($titleFilm, $director, $actors, $ageLimit, $duration, $synopsis, $dateSortie, $price, $stock, $image, $genre, $id_film);
+                    addFilms($titleFilm, $director, $actors, $ageLimit, $duration, $synopsis, $dateSortie, $price, $stock, $image, $genre, $idfilm);
                 }
             }
         }
