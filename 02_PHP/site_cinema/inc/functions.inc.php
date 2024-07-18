@@ -266,7 +266,6 @@ function inscriptionUsers(string $lastName, string $firstName, string $pseudo, s
 
     }
 
-
     $cnx = connexionBdd();
 
     // on prépare la requête
@@ -336,7 +335,6 @@ function checkPseudoUser(string $pseudo): mixed
 
     return $result;
 }
-
 
 
 ///////////////////////////////// Une fonction pour vérifier un utilisateur dans la BDD  ///////////////////////////////////////////
@@ -678,10 +676,13 @@ function filmsByCategory($id) :mixed {
         ':id' => $id
     )); 
     $result = $request->fetchAll();
-    return $result;
-        
+    return $result;      
     
 }
+
+
+
+
 
 
 ?>

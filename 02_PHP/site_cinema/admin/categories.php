@@ -58,13 +58,15 @@ if (!empty($_POST)) { // si le formulaire est envoyé
 
                     $id_category = htmlentities($_GET['id_category']);
                     updateCategory($id_category, $name, $description);
+                    header('location: categories.php');
                     
                 } else {
 
                     addCategory($name, $description);
+                    header('location: categories.php');
                 }
 
-                // header('location: categories.php');
+                
             }
         }
     }

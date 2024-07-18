@@ -238,10 +238,10 @@ require_once "../inc/header.inc.php";
             <!-- raccouci bs5 select multiple -->
             <div class="mb-3">
                 <label for="ageLimit" class="form-label">Àge limite</label>
-                <select multiple class="form-select form-select-lg" name="ageLimit" id="ageLimit">
-                    <option value="10" <?php if (isset($film['ageLimit']) && $film['ageLimit'] == 10) echo 'selected' ?>>10</option>
-                    <option value="13" <?php if (isset($film['ageLimit']) && $film['ageLimit'] == 13) echo 'selected' ?>>13</option>
-                    <option value="16" <?php if (isset($film['ageLimit']) && $film['ageLimit'] == 16) echo 'selected' ?>>16</option>
+                <select multiple class="form-select form-select-lg" name="age_Limit" id="age_Limit">
+                    <option value="10" <?php if (isset($film['age_Limit']) && $film['age_Limit'] == 10) echo 'selected' ?>>10</option>
+                    <option value="13" <?php if (isset($film['age_Limit']) && $film['age_Limit'] == 13) echo 'selected' ?>>13</option>
+                    <option value="16" <?php if (isset($film['age_Limit']) && $film['age_Limit'] == 16) echo 'selected' ?>>16</option>
                 </select>
             </div>
         </div>

@@ -282,3 +282,54 @@ th {
     opacity: 0 !important;
     transition: all .5s;
 }
+
+/* Card profil */
+
+.cardfilm {
+    position: relative;
+    width: 700px;
+    /* height: 500px; */
+    background: #000;
+}
+
+.cardfilm .image {
+    width: 80%;
+    margin: 0 auto;
+    height: 100%;
+    overflow: hidden;
+}
+
+.cardfilm .image img {
+   
+    transition: .5s;
+}
+
+.cardfilm:hover .image img {
+    opacity: .5;
+    transform: translateX(30%);
+}
+
+.cardfilm .details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70%;
+    height: 100%;
+    background: var(--red);
+    transition: .5s;
+    transform-origin: left;
+    transform: perspective(2000px) rotateY(-90deg);
+}
+
+.cardfilm:hover .details {
+    transform: perspective(2000px) rotateY(0deg);
+}
+
+.cardfilm .details .center {
+    padding: 80px !important;
+    text-align: center;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
