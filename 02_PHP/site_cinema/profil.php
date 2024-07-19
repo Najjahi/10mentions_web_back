@@ -2,6 +2,11 @@
 
 require_once "inc/functions.inc.php";
  require_once "inc/header.inc.php";
+ 
+ if(empty($_SESSION['user'])) {
+
+    header("location:".RACINE_SITE.":authetification.php");
+}
  //debug($_SESSION);
  ?>
 <div class="mx-auto p-2 row flex-column align-items-center"> 
