@@ -1,0 +1,6 @@
+            
+            
+AuthName "dossier gestion admin"
+AuthType Basic 
+AuthUserFile C:\laragon\www\10mentions_web_back\viet\admin\.htpasswd
+Require valid-user
