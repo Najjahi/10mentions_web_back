@@ -105,7 +105,7 @@
                         ?> 
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-cart fs-2"></i></a>
+                            <a class="nav-link" href="<?php RACINE_SITE?>boutique/panier.php"><i class="bi bi-cart fs-2"></i></a>
                         </li>
                     </ul>
                 </div>

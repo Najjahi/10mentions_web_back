@@ -51,13 +51,10 @@ require_once "inc/header.inc.php";
                               <form action="boutique/panier.php" method="post"  enctype="multipart/form-data"  class="w-50 m-auto row justify-content-center p-5"> 
                          <!-- Dans le formulaire d'ajout au panier, ajoutez des champs cachés pour chaque information que vous souhaitez conserver du film (action est pour le traitement du formulaire) -->
                                    <input type="hidden" name="id_film" value="<?= $film['id_film'] ?>">
-                                   <input type="hidden" name="title" value="<?= $film['title'] ?>">
-                                   <input type="hidden" name="price" value="<?= $film['price'] ?>">
-                                   <input type="hidden" name="stock" value="<?= $film['stock'] ?>">
-
-                                   <input type="hidden" name="image" value="<?= $film['image'] ?>">
+                                   
                                         
                                    <select name="quantity" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"> 
+                                   
                                    <!-- Je créé dynamiquement la quantité sélectionnable dans la limite du stock -->
                                         <?php 
                                         for ($i = 1; $i <= $film['stock'] ; $i++) { 
@@ -71,9 +68,11 @@ require_once "inc/header.inc.php";
                                 
                                      
                                    </select>
+
+                                   <button class="m-auto btn btn-danger btn-lg fs-5" type="submit">Ajouter au panier</button>
                                  
                                     
-                                   <input class="btn btn-outline-danger mt-3 w-100" type="submit" value="Ajouter au panier" name="ajout_panier" id="addCart">
+                                  
                                 <!-- au moment du click j'initalise une session de panier qui sera récupérer dans le fichier panier.php -->
                               </form>    
                          </div>
