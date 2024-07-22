@@ -112,7 +112,7 @@ require_once "../inc/header.inc.php";
 
                ?>
                     <tr>
-                         <td class="text-center border-top border-dark-subtle"><a href="<?=RACINE_SITE?>showFilm.php?id_film="><img src="<?= RACINE_SITE?>/assets/img/<?=$filmDansPanier['image']?>" style="width: 100px;"></a></td>
+                         <td class="text-center border-top border-dark-subtle"><a href="<?=RACINE_SITE?>showFilm.php?id_film=<?$filmDansPanier['id_film']?>"><img src="<?= RACINE_SITE?>/assets/img/<?=$filmDansPanier['image']?>" style="width: 100px;"></a></td>
                          <td class="text-center border-top border-dark-subtle"><?=$filmDansPanier['title']?></td>
                          <td class="text-center border-top border-dark-subtle"><?=$filmDansPanier['price']?>€</td>
                          <td class="text-center border-top border-dark-subtle d-flex align-items-center justify-content-center" style="padding: 7rem;">
@@ -121,7 +121,7 @@ require_once "../inc/header.inc.php";
                                <!-- Afficher la quantité actuelle -->
 
                          </td>
-                         <td  class="text-center border-top border-dark-subtle">€</td>
+                         <td  class="text-center border-top border-dark-subtle"><?=$filmDansPanier['price']?>*<?=$filmDansPanier['quantity']?>€</td>
                          <td  class="text-center border-top border-dark-subtle"><a href="?id_film="><i class="bi bi-trash3"></i></a></td>
                     </tr>
 
@@ -135,7 +135,7 @@ require_once "../inc/header.inc.php";
 
 
                </table>
-               <form action="checkout.php" method="post">
+               <form action="checkout.php" method="pos">
                     <input type="hidden" name="total" value="">
                     <button type="submit" class="btn btn-danger mt-5 p-3" id="checkout-button">Payer</button>
 
