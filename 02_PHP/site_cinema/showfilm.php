@@ -3,7 +3,7 @@ require_once "inc/functions.inc.php";
 
 if(empty($_SESSION['user'])) {
 
-     header("location:".RACINE_SITE.":authetification.php");
+     header("location:".RACINE_SITE."authentification.php");
  }
  
 if (isset($_GET) && isset($_GET['id_film']) && !empty($_GET['id_film'] )) {

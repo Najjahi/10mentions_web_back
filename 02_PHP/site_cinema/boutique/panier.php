@@ -69,7 +69,22 @@ if (isset($_POST) && !empty($_POST)) {
 
 // vider le panier
 if (isset($_GET['vider']) && $_GET['vider']== 'unset') {
+
      unset($_SESSION['panier']);
+}
+if (isset($_GET['id_film'])) {
+
+    $idFilmForDelete= htmlentities($_GET['id_film']);
+
+    foreach ($_SESSION['panier'] as $key => $film) {
+
+     if ($film['id_film'] == $idFilmForDelete) {
+
+          unset($_SESSION['panier'][$key]);
+       
+     }
+    
+    }
 }
 
 require_once "../inc/header.inc.php";
@@ -121,22 +136,22 @@ require_once "../inc/header.inc.php";
                                <!-- Afficher la quantité actuelle -->
 
                          </td>
-                         <td  class="text-center border-top border-dark-subtle"><?=$filmDansPanier['price']?>*<?=$filmDansPanier['quantity']?>€</td>
-                         <td  class="text-center border-top border-dark-subtle"><a href="?id_film="><i class="bi bi-trash3"></i></a></td>
+                         <td  class="text-center border-top border-dark-subtle"><?=$filmDansPanier['price'] * $filmDansPanier['quantity']?>€</td>
+                         <td  class="text-center border-top border-dark-subtle"><a href="?id_film=<?=$filmDansPanier['id_film']?>"><i class="bi bi-trash3"></i></a></td>
                     </tr>
 
                     <?php
                      }
                     ?>
                     <tr class="border-top border-dark-subtle">
-                         <th class="text-danger p-4 fs-3">Total : €</th>
+                         <th class="text-danger p-4 fs-3">Total :<?= calculMontantTotal($_SESSION['panier'])?>€</th>
                     </tr>
 
 
 
                </table>
                <form action="checkout.php" method="pos">
-                    <input type="hidden" name="total" value="">
+                    <input type="hidden" name="total" value="<?php calculMontantTotal($_SESSION['panier']) ?>">
                     <button type="submit" class="btn btn-danger mt-5 p-3" id="checkout-button">Payer</button>
 
 
