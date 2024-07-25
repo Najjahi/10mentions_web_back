@@ -42,7 +42,7 @@ if (isset($_POST) && !empty($_POST)) {
                $_SESSION['panier'][$key]['quantity'] += $quantite;
               //-------- film n°1 ------ : quantité = quantité initiale + la nouvelle quantité
               $filmNotExiste = true;
-              break;
+             // break;
 
 
          }
@@ -61,14 +61,14 @@ if (isset($_POST) && !empty($_POST)) {
           ];
 
           $_SESSION['panier'][] = $newFilm; // j'ajoute le film avec toutes ses information dans $_SESSION['panier']
-
+          header("location:panier.php");
      }
 
     }
 }
 
 // vider le panier
-if (isset($_GET['vider']) && $_GET['vider']== 'unset') {
+if (isset($_GET['vider']) && $_GET['vider'] == 'unset') {
 
      unset($_SESSION['panier']);
 }
@@ -150,7 +150,7 @@ require_once "../inc/header.inc.php";
 
 
                </table>
-               <form action="checkout.php" method="pos">
+               <form action="checkout.php" method="post">
                     <input type="hidden" name="total" value="<?php calculMontantTotal($_SESSION['panier']) ?>">
                     <button type="submit" class="btn btn-danger mt-5 p-3" id="checkout-button">Payer</button>
 

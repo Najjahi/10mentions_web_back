@@ -681,7 +681,7 @@ function filmsByCategory($id) :mixed {
 }
 
 //////////////////////// Une fonction pour calculerle montant total /////////////////////
-function calculMontantTotal(array $tab) {
+function calculMontantTotal(array $tab) :int {
 
     $montantTotal = 0;
 
@@ -714,7 +714,63 @@ function createTableOrders(){
 
 // foreignKey('orders', 'user_id', 'users', 'id_user');
 
+/////////////////////// Une fonction pour creer la table commandes/////////////////
 
+function addOrder(int $user_id, float $price, string $created_at, string $is_paid) :bool{
 
+    $cnx = connexionBdd();
+     $sql = "INSERT INTO orders(user_id, price, created_at, is_paid) VALUES (:user_id, :price, :created_at, :is_paid)";
+     $request = $cnx->prepare($sql);
+     $request->execute(array( 
+          ':user_id'     =>$user_id,
+          ':price'       =>$price, 
+          ':created_at'  =>$created_at, 
+          ':is_paid'     =>$is_paid
+         
+          ));
+        if($request){
+            return true;
+        }
+}
 
+//fonction pour afficher la derniere commande
+function lastId(): array{
+    $cnx = connexionBdd();
+    $sql = "SELECT MAX(id_order) AS lastId FROM orders";
+    $request= $cnx->query($sql);
+    $result= $request->fetch();
+    return $result;
+
+}
+
+//fonction pour ajouter les details de la commande
+function addOrderDetails(int $orderId, int $filmId, float $filmPrice, int $quantity) :void{
+
+    $cnx = connexionBdd();
+    $sql = "INSERT INTO order_details(order_id, film_id, price_film, quantity) VALUES (:order_id, :film_id, :price_film,:quantity)";
+    $request = $cnx->prepare($sql);
+    $request->execute(array( 
+         ':order_id'     => $orderId,
+         ':film_id'      => $filmId,
+         ':price_film'   => $filmPrice, 
+         ':quantity'     => $quantity, 
+         ));
+    
+
+}
+
+function createTableOrderDetails(){
+
+    $cnx = connexionBdd();
+    $sql = " CREATE TABLE IF NOT EXISTS order_details (
+         order_id INT NOT NULL,
+         film_id INT NOT NULL,
+         price_film FLOAT NOT NULL,
+         quantity INT NOT NULL
+        
+    )";
+    $request = $cnx->exec($sql);
+
+}
+//createTableOrderDetails();
 ?>
