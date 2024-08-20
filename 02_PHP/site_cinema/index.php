@@ -11,7 +11,6 @@ if (isset($_GET)  && !empty($_GET) ) {
 
         $idCategory = htmlentities($_GET['id_category']);
 
-
         if(is_numeric($idCategory)){
 
             $cat = showCategoryViaId($idCategory);
@@ -22,7 +21,6 @@ if (isset($_GET)  && !empty($_GET) ) {
 
             }else {
 
-
                 $films = filmsByCategory($idCategory);
 
                 $message = "Cette catégorie contient : ";
@@ -30,22 +28,18 @@ if (isset($_GET)  && !empty($_GET) ) {
                 if (!$films) {
 
                     $info = alert("Désolé ! cette catégorie ne contient aucun film", "danger");
-
                 }
-
             }
 
         }else {
 
             header('location:index.php');
-
         }
 
     }elseif(isset($_GET['action']) && $_GET['action'] == 'voirPlus'){
 
         $films = allFilms();
         $message = "Le nombre total de films : ";
-
     }
 
 }else{
@@ -55,14 +49,8 @@ if (isset($_GET)  && !empty($_GET) ) {
 
 }
 
-
-
-
-
-
 require_once "inc/header.inc.php";
 ?>
-
 
 <div class="films">
     <h2 class="fw-bolder fs-1 mx-5 text-center"> <?= $message . count($films) ?></h2>
@@ -73,7 +61,6 @@ require_once "inc/header.inc.php";
         foreach ($films as  $film) {
 
         ?>
-
             <div class="col-sm-12 col-md-6 col-lg-4 col-xxl-3" >
                 <div class="card">
                     <img src="<?= RACINE_SITE?>assets/img/<?=$film['image']?>" alt="image du film" >
@@ -88,18 +75,13 @@ require_once "inc/header.inc.php";
             <!-- <div class="col-12 text-center">
                 <?//= count($films) == 0 || (isset($_GET['action']) && $_GET['action'] == 'voirPlus') ? '<a href="'.  RACINE_SITE.'index.php" class="btn p-4 fs-3"> Retourner à l\'accueil </a>' : '<a href="'.RACINE_SITE.'?action=voirPlus" class="btn p-4 fs-3"> Accéder à tout les films </a>' ?>
             </div> -->
-
             <?php
-
-
         }
 
         ?>
-
     </div>
     <?php
     if (empty($_GET)) {
-
     
     ?>
     
