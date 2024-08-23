@@ -1,6 +1,6 @@
-
-
 <?php
+require_once "../inc/function.inc.php";
+
 
 /**
  * Classe Membre.
@@ -41,10 +41,16 @@ class Membre
      */
     public function setPseudo(string $p): void
     {
-        if ((is_string($p)) &&(strlen($p) < 1 || strlen($p) > 15)) {
-            throw new Exception("Le pseudo doit contenir entre 1 et 15 caractères.");
+        if ((!ctype_alpha($p)) || (strlen($p) < 1 || strlen($p) > 15)) {
+
+            $this->pseudo = "le pseudo n'est pas valide";
+            
+        } else {
+
+            $this->pseudo = $p;
+
         }
-        $this->pseudo = $p;
+       
     }
 
     /**
@@ -67,28 +73,13 @@ class Membre
         return $this->mdp;
     }
 
-    /**
-     * afficher les details
-     *
-     * @return void
-     */
-    public function afficherInfos() {
-        echo "Pseudo : " . $this->getPseudo() . "<br>";
-        echo "Mot de passe : " . $this->getMdp() . "<br>";
-    }
 
 }
 
 // Exemple d'utilisation de la classe Membre
+$membre_1 = new Membre("", "monMotDePasse"); // on instancie la classe 
+echo $membre_1->getPseudo();
+//echo $membre_1->getMdp();
 
-// Utilisation de la classe
-try {
-    $membre1 = new Membre("NAJAHE2024", "monMotDePasse");
-    $membre1->afficherInfos();
 
-    // Exemple avec un pseudo trop long
-    $membre2 = new Membre("NAJAHE2024NAJAHE2024NAJAHE2024", "mdp");
-} catch (Exception $e) {
-    echo "Erreur : " . $e->getMessage();
-}
 ?>
