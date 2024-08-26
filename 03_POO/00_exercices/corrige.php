@@ -92,3 +92,65 @@ try {
     echo "Erreur : " . $e->getMessage();
 }
 ?>
+<?php
+class Media {
+   
+   /**
+    * Le nom de la personne (prppriété protégée)
+    *
+    * @var string
+    */
+   protected string $titre;
+  
+   /**
+    * Constructeur de la classe Personne
+    *
+    * @param string $t
+    */
+   public function __construct($t) {
+
+       $this->titre = $t;
+   }
+       
+   /**
+     * Méthode protégée pour obtenir une description génétique 
+     *
+     * @return string
+     */
+   protected function affichetitre() :string{
+
+       return " titre du livre est : {$this->titre}";
+   
+   }
+}
+
+class livre extends Media {
+
+    /**
+     * L'auteur du livre
+     *
+     * @var string
+     */
+    private string $auteur;
+
+
+    public function __construct(string $titre, string $auteur) {
+        parent::__construct($titre); // Appel du constructeur de la classe de base parente (personne) depuis la classe enfant
+        $this->auteur= $auteur;
+    }
+    
+    /**
+     * Affiche les informations de l'etudiant, y compris le nomet l'âge
+     *
+     * @return string
+     */
+    public function afficheInfos() {
+
+        return $this->affichetitre() . "\n auteur :\n" . $this->auteur;
+    }
+}
+
+$livre1 = new livre("les misérables","VICTOR HUGO");
+
+echo $livre1->afficheInfos();
+

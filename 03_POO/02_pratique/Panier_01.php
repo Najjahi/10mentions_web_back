@@ -57,7 +57,7 @@ class Panier {
         return "L'article a été retiré"; // traitement 
     }
 
-    // On peut déclarer unemethode avec des paramétres 
+    // On peut déclarer une méthode avec des paramétres 
 
     
     /**

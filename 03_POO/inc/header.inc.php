@@ -52,6 +52,7 @@
                                 <li><a class="dropdown-item" href="../02_pratique/Visibilite_02.php">Visibilité</a></li>
                                 <li><a class="dropdown-item" href="../02_pratique/Humain_03.php">Humain</a></li>
                                 <li><a class="dropdown-item" href="../02_pratique/JeuVideo_04.php"> Jeu video</a></li>
+                                <li><a class="dropdown-item" href="../02_pratique/Maison_05.php"> Maison </a></li>
 
                             </ul>
                         </li>

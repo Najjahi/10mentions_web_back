@@ -20,7 +20,7 @@ class Fruits {
 
 
     /**
-     * Constructure de la classe
+     * Constructeur de la classe
      *
      * @param string $n
      * @param string $c

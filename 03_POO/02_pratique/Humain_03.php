@@ -4,7 +4,7 @@ require_once "../inc/function.inc.php";
 //GETTER et SETTER
 /**
  * Une classe représentant un humain avec des propriétés privées pour le prénom et le nom
- * Les propriétés privées sonr accédées et modifiées via des méthodes publiques appellées getter et setter
+ * Les propriétés privées sont accédées et modifiées via des méthodes publiques appellées getter et setter
  */
 
  class Humain {
@@ -66,9 +66,6 @@ require_once "../inc/function.inc.php";
 
         if (is_string($n)) { // si c'est une chaine de caractére je rentre dans la condition
             
-            // mot clef $this est une "pseudo-variable" , elle va être remplacée par l'objet courrament utilisé. 
-            // $this  est créer automatiquement et qui représente l'insctance courante
-
             $this->nom = $n; // on assigne la valeur de $p à la propriété $prenom
         }
 
