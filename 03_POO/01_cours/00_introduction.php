@@ -39,10 +39,12 @@ require_once "../inc/header.inc.php";
                     <li>La simplification de la maintenance</li>
                     <li>L'assouplissement du code : offre une grande souplesse pour faire évoluer le projet sans avoir à tout réécrire</li>
                 </ul>
-                <p>Cette approche est tout de même moins intuitive que l'approche procédurale. La POO oblige à réfléchir et à modéliser avant de programmer.</p>
+                <p>Cette approche est tout de même moins intuitive que l'approche procédurale. La POO oblige à réfléchir et à modéliser avant de programmer.
+                    
+                </p>
             </div>
         </div>
-    </div>
+    </div> 
 
     <?php
 require_once "../inc/footer.inc.php"
