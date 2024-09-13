@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block main %}
+<div class="row">
+    <h2 class="text-center mb-5 text-success">Article n° {{articleUnique.id}} </h2>
+    <div class="col-sm-10 m-auto">
+        <div class="card mb-3">
+            <img src="{{ asset('assets/uploads/images/' ~ articleUnique.image) }}"  class="card-img-top h-auto" alt="Atricle n° {{ articleUnique.id}}" height="300">
+            <div class="card-body container p-5">
+                <h5 class="card-title text-center bg-black text-white p-3">{{ articleUnique.title |capitalize}}</h5>
+                <p class="card-text">{{ articleUnique.content}}</p>
+                <h6 class="card-text"> Artricle créé le : <small class="text-body-secondary">{{ articleUnique.createdAt |date("m/d/Y", "Europe/Paris") }} </small></h6>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

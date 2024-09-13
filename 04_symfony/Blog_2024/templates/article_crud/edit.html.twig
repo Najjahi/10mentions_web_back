@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Article{% endblock %}
+
+{% block main %}
+    <h1> Modifier un article</h1>
+
+    {{ include('article_crud/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_article_crud_index') }}"> Aller sur la page des articles</a>
+
+{% endblock %}
