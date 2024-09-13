@@ -32,9 +32,7 @@ class HomeController extends AbstractController
         // dump($articles);
 
         $catergories = $categoriesRepository->findAll();// un tableau avec tout les articles
-        // dd($catergories);
-
-        
+        // dd($catergories);       
     
         // l'action index() retourne la méthode render() qui provien de la classe abstractController
         return $this->render('home/accueil.html.twig', [// render prends 2 arguments : 
@@ -43,9 +41,28 @@ class HomeController extends AbstractController
 
             "articlesBlog" => $articles, // ici in linject une variable Qui s'appelle articlesBlog avec sa valeur : le chaine de canractére HomeControler
             "menuCatiegorie" => $catergories,
-
         ]);
     }
+    #[Route('/category/{name}', name: 'app_article_category')]
+    public function selectCategorie(ArticleRepository $articleRepository, CategorieRepository           $categorieRepository, sting $name) :Response{
 
+       
+        $catergorie = $categoriesRepository->findByName($name)        
+        $idCat= $catergorie->getId();
+
+        $articles = $articleRepository->findByCategorie($idCat);
+        return $this->rebdor('home/accueil.html.twig',[
+
+         //pour la barre de navigation
+         $catergorie = $categoriesRepository->findAll()
+       
+        
+        $articles = $articleRepository->findByCategorie($catergorie);
+        return $this->rebdor('home/accueil.html.twig',[
+                "articles" => $articles,
+                
+        ] );
+
+    }
     
 }

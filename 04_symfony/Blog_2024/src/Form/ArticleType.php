@@ -39,14 +39,13 @@ class ArticleType extends AbstractType
                             'image/png',
                             'image/jpeg'
                         ],
-                        'mimeTypesMessage' => "Merci s'insérer une image valide(.jpeg ou .png)"
-
-                        
+                        'mimeTypesMessage' => "Merci s'insérer une image valide(.jpeg ou .png)"                        
                     ])
                 ]
             ])
            
-            ->add('categorie', EntityType::class, [
+            ->add('categorie', EntityType::class,
+             [
                 'label'=> "Catégorie de l'article",
                 'class' => Categorie::class,
                 'choice_label' => 'name',

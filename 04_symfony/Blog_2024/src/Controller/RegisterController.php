@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 class RegisterController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function index(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManagerInterface): Response
+    public function index(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface, EntityManagerInterface $entityManagerInterface, CategorieRepository $categorieRepository): Response
     {
         if ($this->getUser()) { // si une utilisateur est connecté 
             
@@ -48,8 +49,12 @@ class RegisterController extends AbstractController
 
             return $this->redirectToRoute('app_login');
         }
+
+        //Récupération des catégories
+        $categories = $categorieRepository->finfAll();
         return $this->render('register/register.html.twig', [
             'formInscription' => $form->createView(),// je passe le form en var et je lui dis de me crée la vue dr mon form
+            'categoriesMenu'=>$categories
         ]);
     }
 }

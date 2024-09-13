@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/article/crud')]
+#[Route('/account/article/crud')]
 final class ArticleCrudController extends AbstractController
 {
     #[Route(name: 'app_article_crud_index', methods: ['GET'])]

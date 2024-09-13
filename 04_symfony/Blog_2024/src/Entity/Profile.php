@@ -6,6 +6,7 @@ use App\Repository\ProfileRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: ProfileRepository::class)]
 class Profile
 {
@@ -33,6 +34,18 @@ class Profile
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    public function __construct()
+    {
+        
+        $this->createdAt = new \DateTimeImmutable();
+    }
+    
+    #[ORM\PreUpdate] // signifie que la méthode annottée sera appellée juste avant que l'entité soit mise à jour dans la base de donnée, c'est à dire juste avant l'exécution de la requete SQL de mise à jour.
+
+    public function setUpdatedAtValue(){
+        $this->updatedat = new \DateTimeImmutable();
+
+    }
     public function getId(): ?int
     {
         return $this->id;

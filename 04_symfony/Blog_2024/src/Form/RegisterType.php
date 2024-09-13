@@ -27,7 +27,6 @@ class RegisterType extends AbstractType
                 'required'=> false,
                 'attr' => [
                     'placeholder'=> 'Votre prénom',
-
                 ],
                 'constraints'=> [
                     new Length([
@@ -39,7 +38,6 @@ class RegisterType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez entrer votre prenom'
                     ])
-
                 ]
             ])
             ->add('lastName',TextType::class, [
@@ -48,7 +46,6 @@ class RegisterType extends AbstractType
                 'required'=> false,
                 'attr' => [
                     'placeholder'=> 'Votre prénom',
-
                 ],
                 'constraints'=> [
                     new Length([
@@ -60,7 +57,6 @@ class RegisterType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez entrer votre nom'
                     ])
-
                 ]
             ])
             ->add('email', EmailType::class, [
@@ -69,17 +65,13 @@ class RegisterType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'placeholder'=> 'Votre email',
-
                 ],
-                'constraints'=> [
-                    
+                'constraints'=> [                    
                     new NotBlank([
                         'message' => 'Veuillez entrer votre email'
                     ])
-
                 ]
             ])
-           
             // ->add('roles')
             ->add('password', RepeatedType::class, [
                 'type'=> PasswordType::class,
@@ -88,7 +80,6 @@ class RegisterType extends AbstractType
                     'label' => false,
                     'attr' => [
                     'placeholder'=> 'Votre mot de passe',
-
                 ],
                 'constraints'=> [
                     new Length([
@@ -96,7 +87,6 @@ class RegisterType extends AbstractType
                         'minMessage'=> 'Votre prénom doit avoir au minimum {{ limit }} caractères',
                         'max'=> 12,
                         'maxMessage'=> 'Votre prénom doit avoir au maximum {{ limit }} caractères',
-
                     ])
                 ]
                 ],
@@ -104,25 +94,20 @@ class RegisterType extends AbstractType
                     'label' => false,
                     'attr' => [
                     'placeholder'=> 'Confirmez votre mot de passe',
-
                     ],
-                
                ]
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'S\'inscrire',
                     'attr' => [
                     'class'=> 'btn-success',
-
                     ],
-
-            ])
+            ]);
             // ->add('profile', EntityType::class, [
             //     'class' => Profile::class,
             //     'choice_label' => 'id',
             // ])
-        ;
-    }
+       }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

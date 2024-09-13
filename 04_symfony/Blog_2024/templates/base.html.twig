@@ -33,7 +33,11 @@
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">	No catégories
 								</a>
 								<ul class="dropdown-menu w-25" aria-labelledby="navbarDropdown">
-									<li><a href="" class="nav-link ps-2 text-white"></a></li>
+									{% for categorie in categoriesMenu %}
+
+									<li><a href="{{ path('app_article_categoriy',{'name':categorie.name})}}" class="nav-link ps-2 text-white">{{categorie.name}}</a></li>
+										
+									{% endfor %}
 								</ul>
 							</li>
 							{# La varaible app est une variable globale définie par symfony elle nous donne automatiquemenr accés à certaines variables spécifique à l'application comme l'utilisateur connecté, la session, le nom de l'environnement actuel etc   #}
@@ -67,7 +71,7 @@
 							{% endif %}
 
 
-							<li><a href="" class="nav-link ps-2 text-white">Compte</a></li>
+							<li><a href="{{ path('app_profile_index')}}" class="nav-link ps-2 text-white">Compte</a></li>
 							<li><a href="{{ path('app_article_crud_index')}}" class="nav-link ps-2 text-white">Mes articles</a></li>
 							<li><a href="{{ path('app_logout') }}" class="nav-link ps-2 text-white">Déconnexion</a>	</li>
 								

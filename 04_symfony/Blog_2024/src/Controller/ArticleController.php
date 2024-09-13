@@ -17,6 +17,7 @@ class ArticleController extends AbstractController
 
         return $this->render('article/index.html.twig', [
             "articleUnique" => $article,
+            //'categoriesMenu'=>$categories
         ]);
     }
 }
