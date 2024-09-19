@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% block main %}
+<div class="row">
+	{# Si je suis dans la page d'accueil j'affiche tous les article #}
+
+	<h2 class="text-center mb-5 text-success">Nos articles</h2>
+	{# la variables articleBlog est déclaré au moment du for, c'est une variable de reception, qui receptionne un article
+	par tour de boucle, la variables articlesBlog correspond à l'indice 'articlesBlog' du tableau ARRAY déclarée dans le
+	controller HomeController.php dans la méthode home() #}
+
+	{# Pour chaque articlesBlog dans le tableau articlesBlog on affiche une card #}
+	{% for i in articlesBlog %}
+	
+
+	<div class="col-lg-4 col-sm-12">
+		<div class="card mb-3" style="height: 900px;">
+			<img src="{{ asset('assets/uploads/images/' ~ i.image) }}" class=" card-img-top h-auto" alt="Image de l'article" height="200">
+			<div class="card-body">
+				<h5 class="card-title"> {{i.title}} </h5>
+				{# ATTETION installation du bundel #}
+				<p class="card-text"> {{ i.content|slice(0, 200) ~ '...' }}</p>{# un filter pour réduire la taille de notre description ce filter necessite
+				une installation d'un bundle avec les commande :
+				composer require twig/string-extra
+				composer require twig/extra-bundle #}
+				<h6 class="card-text"> Article créé le : {{ i.createdAt |date("m/d/Y", "Europe/Paris") }} <small class="text-body-secondary"></small></h6>{# il faut
+				formater le date si non ça cause une erreure donc on filtre la dessus #}
+
+				{# ce bouton vas nous servir pour afficher un seul article #}
+				{# la fonction path() de TWIG elle prend comme premier paramètre le nom de la route et le deuxièeme
+				paramètre l'identifiant de l'article #}
+				<a href="{{path("app_article",{'id':i.id})}}" class="btn"><i class="bi bi-eye-fill fs-4 text-success"></i></a>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}
